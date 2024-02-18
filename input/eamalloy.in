@@ -1,0 +1,9 @@
+read_data cu_block.restart 
+potential eamalloy Cu_mishin1.eam.alloy Cu
+#potential eamtab
+neighbor 2.0
+dump out 100 Cu
+thermo 10
+#set_force all null null 0
+min_style fire
+minimize 1d-12 1d-12 100000
