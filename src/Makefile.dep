@@ -1,0 +1,39 @@
+obj/atom_types.o : atom_types.f90 obj/str.o obj/logger.o obj/parameters.o 
+obj/berendsen.o : berendsen.f90 obj/time.o obj/forces.o obj/compute.o obj/parameters.o obj/elements.o 
+obj/box.o : box.f90 obj/errors.o obj/parameters.o 
+obj/cg.o : cg.f90 obj/min_arrays.o obj/integration.o obj/potential.o obj/neighbors.o obj/atom_types.o obj/time.o obj/forces.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/comms.o : comms.f90 obj/math.o obj/errors.o obj/box.o obj/elements.o obj/parameters.o 
+obj/compute.o : compute.f90 obj/box.o obj/group.o obj/elements.o obj/forces.o obj/atom_types.o obj/comms.o obj/parameters.o 
+obj/debug.o : debug.f90 obj/str.o obj/elements.o obj/forces.o obj/parameters.o 
+obj/deform.o : deform.f90 obj/comms.o obj/time.o obj/neighbors.o obj/elements.o obj/box.o obj/parameters.o 
+obj/displace.o : displace.f90 obj/neighbors.o obj/time.o obj/str.o obj/group.o obj/elements.o obj/parameters.o obj/forces.o 
+obj/dump.o : dump.f90 obj/time.o obj/group.o obj/math.o obj/forces.o obj/errors.o obj/box.o obj/elements.o obj/comms.o obj/parameters.o obj/atom_types.o 
+obj/dynamics.o : dynamics.f90 obj/deform.o obj/berendsen.o obj/temp.o obj/time.o obj/thermo.o obj/dump.o obj/potential.o obj/comms.o obj/forces.o obj/quenched_dynamics.o obj/neighbors.o obj/vel_verlet.o obj/parameters.o 
+obj/eam.o : eam.f90 obj/atom_types.o obj/errors.o obj/comms.o obj/neighbors.o obj/integration.o obj/elements.o obj/forces.o obj/math.o obj/parameters.o 
+obj/elements.o : elements.f90 obj/math.o obj/box.o obj/errors.o obj/parameters.o 
+obj/errors.o : errors.f90 obj/logger.o obj/parameters.o 
+obj/fire.o : fire.f90 obj/debug.o obj/potential.o obj/neighbors.o obj/atom_types.o obj/time.o obj/forces.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/force_mod.o : force_mod.f90 obj/time.o obj/str.o obj/group.o obj/elements.o obj/parameters.o obj/forces.o 
+obj/forces.o : forces.f90 obj/integration.o obj/elements.o obj/parameters.o 
+obj/group.o : group.f90 obj/comms.o obj/str.o obj/box.o obj/elements.o obj/parameters.o 
+obj/input_parser.o : input_parser.f90 obj/langevin.o obj/modify.o obj/deform.o obj/set.o obj/displace.o obj/force_mod.o obj/minimize.o obj/group.o obj/dump.o obj/logger.o obj/neighbors.o obj/read_data.o obj/eam.o obj/potential.o obj/parameters.o obj/comms.o 
+obj/integration.o : integration.f90 obj/errors.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/langevin.o : langevin.f90 obj/group.o obj/atom_types.o obj/time.o obj/forces.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/logger.o : logger.f90 obj/parameters.o 
+obj/main.o : main.f90 obj/langevin.o obj/deform.o obj/debug.o obj/potential.o obj/berendsen.o obj/temp.o obj/thermo.o obj/dump.o obj/group.o obj/time.o obj/minimize.o obj/logger.o obj/neighbors.o obj/integration.o obj/input_parser.o obj/parameters.o obj/comms.o 
+obj/math.o : math.f90 obj/parameters.o 
+obj/min_arrays.o : min_arrays.f90 obj/errors.o obj/elements.o obj/parameters.o 
+obj/minimize.o : minimize.f90 obj/debug.o obj/logger.o obj/errors.o obj/thermo.o obj/dump.o obj/potential.o obj/comms.o obj/forces.o obj/neighbors.o obj/cg.o obj/fire.o obj/parameters.o 
+obj/modify.o : modify.f90 obj/potential.o obj/elements.o obj/neighbors.o obj/parameters.o 
+obj/morse.o : morse.f90 obj/atom_types.o obj/errors.o obj/comms.o obj/neighbors.o obj/integration.o obj/elements.o obj/forces.o obj/math.o obj/parameters.o 
+obj/neighbors.o : neighbors.f90 obj/min_arrays.o obj/temp.o obj/group.o obj/elements.o obj/forces.o obj/logger.o obj/comms.o obj/math.o obj/integration.o obj/parameters.o 
+obj/parameters.o : parameters.f90 
+obj/potential.o : potential.f90 obj/force_mod.o obj/atom_types.o obj/str.o obj/comms.o obj/forces.o obj/morse.o obj/eam.o obj/parameters.o 
+obj/quenched_dynamics.o : quenched_dynamics.f90 obj/vel_verlet.o obj/time.o obj/potential.o obj/neighbors.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/read_data.o : read_data.f90 obj/time.o obj/str.o obj/logger.o obj/comms.o obj/dynamics.o obj/potential.o obj/integration.o obj/box.o obj/elements.o obj/parameters.o obj/math.o 
+obj/set.o : set.f90 obj/logger.o obj/group.o obj/elements.o 
+obj/str.o : str.f90 
+obj/temp.o : temp.f90 obj/atom_types.o obj/time.o obj/compute.o obj/group.o obj/elements.o obj/comms.o obj/parameters.o 
+obj/thermo.o : thermo.f90 obj/str.o obj/compute.o obj/forces.o obj/elements.o 
+obj/time.o : time.f90 obj/errors.o obj/logger.o obj/parameters.o 
+obj/vel_verlet.o : vel_verlet.f90 obj/time.o obj/potential.o obj/neighbors.o obj/elements.o obj/comms.o obj/parameters.o 
