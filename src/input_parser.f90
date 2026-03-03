@@ -18,6 +18,7 @@ module input_parser
     use deform
     use modify
     use langevin
+    use input_validation
 
     implicit none
 
@@ -183,12 +184,11 @@ module input_parser
                     end select
                     call parse_minimize(line)
                 case('run')
-                    do i=1, 2
-                        if(.not.req_flags(i)) then 
-                            print *, "Error: must call ", req_commands(i), " before run command"
-                            call mpi_abort(mpi_comm_world, 1, ierr)
-                        end if
-                    end do
+                    i = first_missing_required_command(req_flags)
+                    if (i > 0) then
+                        print *, "Error: must call ", req_commands(i), " before run command"
+                        call mpi_abort(mpi_comm_world, 1, ierr)
+                    end if
                     !Prepare for calculation
                     call pre_calc(1)
                     call parse_run(line)

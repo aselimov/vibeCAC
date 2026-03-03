@@ -10,6 +10,7 @@ module dump
     use math
     use group
     use time
+    use dump_logic
 
     implicit none
 
@@ -82,9 +83,7 @@ module dump
         end if
 
         !Now if dump every = 0 set it to a very large number 
-        if (dump_every(dump_num) == 0) then 
-            dump_every(dump_num) = (huge(1))
-        end if
+        dump_every(dump_num) = normalize_dump_every(dump_every(dump_num))
 
         return
     end subroutine  parse_dump
@@ -184,7 +183,7 @@ module dump
 
         gathered = .false.
         do i = 1, dump_num
-            if((mod(timestep, dump_every(i)) == 0).or.want_dump) then 
+            if(should_write_dump(timestep, dump_every(i), want_dump)) then 
                 !Gather arrays if needed
                 if(.not.gathered) then 
                     if(atom_num > 0) call gather_at
