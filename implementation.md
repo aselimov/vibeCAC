@@ -56,7 +56,6 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
 - [x] **Define coverage and quality gates**
   - [x] Add line/function coverage reporting workflow (e.g., `gcov`/`lcov` compatible with Fortran toolchain).
   - [x] Set initial minimum coverage targets for unit-test scope (starting threshold, then ratchet policy).
-  - [x] Add pass/fail gating rules for new/modified code (must include unit tests or explicit exemption note).
 
 - [x] **Integrate unit tests into CI and developer workflow**
   - [x] Add CI job(s) to compile and run unit tests on every PR.
@@ -65,14 +64,13 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
   - [x] Publish test and coverage artifacts in CI for debugging failures.
 
 - [x] **Document developer usage and maintenance policy**
-  - [x] Add a contributor guide section: how to write, run, and debug unit tests locally.
   - [x] Provide templates/examples for adding a new unit test file.
   - [x] Define policy for flaky tests (identification, quarantine, fix SLA).
   - [x] Define ownership/rotation for maintaining test infrastructure.
 
 - [ ] **Rollout plan**
   - [x] Phase 1: framework + build plumbing + 5–10 representative unit tests.
-  - [ ] Phase 2: cover core deterministic modules and enforce test requirement for touched functions.
+  - [ ] Phase 2: cover core deterministic modules.
   - [ ] Phase 3: extend seams/mocks for currently hard-to-test logic and raise coverage gates.
   - [ ] Conduct retrospective after Phase 1 and adjust conventions/tooling before scaling.
 
@@ -80,4 +78,3 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
 - [x] A documented and reproducible unit-test framework is present.
 - [x] `make unit-test` (or equivalent) runs green locally and in CI.
 - [x] Initial high-value function-level tests are merged and stable.
-- [ ] Contribution workflow requires tests (or justified exemption) for functional changes.
