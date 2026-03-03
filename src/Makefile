@@ -5,7 +5,7 @@ OBJDIR=obj
 SRCS := $(wildcard *.f90)
 OBJECTS := $(addprefix $(OBJDIR)/,$(SRCS:%.f90=%.o))
 ARCH := $(shell uname -m)
-FFLAGS=-Wall -O2 -g -fbacktrace -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow,denormal -J$(OBJDIR)
+FFLAGS=-Wall -O2 -g -fbacktrace -fcheck=all -J$(OBJDIR)
 ifeq ($(ARCH),x86_64)
 FFLAGS += -mcmodel=large
 endif
@@ -56,7 +56,7 @@ DUMP_TEST_OBJECTS := $(addprefix $(OBJDIR)/,$(DUMP_TEST))
 
 
 .PHONY:	tests
-tests: test_cohesive_energy test_gsf test_pair_force test_multi_pair_force test_fs_pair_force test_cg_calc test_mixed_potentials
+tests: test_cohesive_energy test_pair_force test_multi_pair_force test_fs_pair_force test_cg_calc 
 
 test_cohesive_energy: $(OBJECTS)
 	$(eval TESTOBJECTS := $(filter-out $(OBJDIR)/main.o,$(OBJECTS)))

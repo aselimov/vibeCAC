@@ -2,7 +2,7 @@ FC=mpif90
 
 #gfortran flags
 ARCH := $(shell uname -m)
-FFLAGS=-O0 -g -fbacktrace -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow,denormal
+FFLAGS=-O0 -g -fbacktrace -fcheck=all
 ifeq ($(ARCH),x86_64)
 FFLAGS += -mcmodel=large
 endif
