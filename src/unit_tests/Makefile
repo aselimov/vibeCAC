@@ -18,6 +18,14 @@ ifeq ($(UNIT_TEST),time)
 CORE_OBJECTS += logger.o errors.o time.o
 endif
 
+ifeq ($(UNIT_TEST),dump_logic)
+CORE_OBJECTS += dump_logic.o
+endif
+
+ifeq ($(UNIT_TEST),input_validation)
+CORE_OBJECTS += input_validation.o
+endif
+
 TEST_OBJECTS = assertions.o test_$(UNIT_TEST).o
 EXECUTABLE = ut_$(UNIT_TEST)
 
