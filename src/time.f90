@@ -15,6 +15,12 @@ module time
     public 
     contains
 
+    pure logical function is_valid_timestep(dt)
+        real(kind=wp), intent(in) :: dt
+
+        is_valid_timestep = dt > 0.0_wp
+    end function is_valid_timestep
+
     subroutine time_defaults
         t = 0.0_wp
         time_step = 0.001_wp
@@ -30,7 +36,7 @@ module time
 
         read(line, *, iostat = iospara) tmptxt, time_step
 
-        if(time_step <= 0.0_wp) then 
+        if(.not.is_valid_timestep(time_step)) then 
             call misc_error("time step must be greater than 0")
         end if
 

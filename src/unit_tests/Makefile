@@ -14,6 +14,10 @@ ifeq ($(UNIT_TEST),str)
 CORE_OBJECTS += str.o
 endif
 
+ifeq ($(UNIT_TEST),time)
+CORE_OBJECTS += logger.o errors.o time.o
+endif
+
 TEST_OBJECTS = assertions.o test_$(UNIT_TEST).o
 EXECUTABLE = ut_$(UNIT_TEST)
 
