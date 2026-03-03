@@ -44,7 +44,7 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
   - [ ] Add explicit interfaces and reduce hidden dependencies to simplify direct procedure invocation in tests.
   - [ ] Preserve runtime behavior by validating refactors against existing `src/tests` workloads.
 
-- [ ] **Implement first wave of baseline unit tests (high-value targets)**
+- [x] **Implement first wave of baseline unit tests (high-value targets)**
   - [x] Add initial tests for deterministic numeric helpers (e.g., in `math.f90`, related utility modules).
   - [x] Add tests for parser/input validation edge cases where deterministic.
   - [x] Add boundary-condition tests:
@@ -71,13 +71,13 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
   - [x] Define ownership/rotation for maintaining test infrastructure.
 
 - [ ] **Rollout plan**
-  - [ ] Phase 1: framework + build plumbing + 5–10 representative unit tests.
+  - [x] Phase 1: framework + build plumbing + 5–10 representative unit tests.
   - [ ] Phase 2: cover core deterministic modules and enforce test requirement for touched functions.
   - [ ] Phase 3: extend seams/mocks for currently hard-to-test logic and raise coverage gates.
   - [ ] Conduct retrospective after Phase 1 and adjust conventions/tooling before scaling.
 
 ## Done Criteria
 - [x] A documented and reproducible unit-test framework is present.
-- [ ] `make unit-test` (or equivalent) runs green locally and in CI.
-- [ ] Initial high-value function-level tests are merged and stable.
+- [x] `make unit-test` (or equivalent) runs green locally and in CI.
+- [x] Initial high-value function-level tests are merged and stable.
 - [ ] Contribution workflow requires tests (or justified exemption) for functional changes.
