@@ -69,3 +69,31 @@ Both paths use debug-friendly flags:
   2. Optionally target a specific test using `UNIT_TEST=<name>`.
 
 No external framework installation is required for the current Phase 1 harness.
+
+## 6) Coverage reporting and quality gates
+
+From `src/`, run:
+
+- `make unit-test-coverage`
+
+This compiles production and unit-test objects with `--coverage`, executes the selected unit test (default `UNIT_TEST=math`), then emits `gcov` reports.
+
+### Initial coverage target
+
+- Initial line-coverage threshold for the first deterministic target (`math.f90`) is **5%**.
+- The threshold is enforced by `src/unit_tests/Makefile` and can be adjusted via:
+  - `make unit-test-coverage COVERAGE_THRESHOLD=<percent>`
+
+### Gate policy for touched code
+
+- New or modified deterministic helper logic should include/extend a corresponding unit test under `src/unit_tests/`.
+- If unit tests are not practical (for MPI-heavy or I/O-heavy changes), add an explicit exemption note in the PR description explaining why and what broader test validates the behavior.
+
+## 7) Contributor guide and maintenance policy
+
+See `docs/testing/contributing-unit-tests.md` for:
+
+- how to write and run unit tests locally,
+- a template for adding a new unit-test file,
+- flaky-test quarantine and fix SLA policy,
+- ownership and review rotation guidance for test infrastructure.
