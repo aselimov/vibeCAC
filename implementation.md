@@ -53,22 +53,22 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
     - [x] invalid argument handling.
   - [x] Add floating-point tolerance policy and verify tests use consistent epsilons.
 
-- [ ] **Define coverage and quality gates**
-  - [ ] Add line/function coverage reporting workflow (e.g., `gcov`/`lcov` compatible with Fortran toolchain).
-  - [ ] Set initial minimum coverage targets for unit-test scope (starting threshold, then ratchet policy).
-  - [ ] Add pass/fail gating rules for new/modified code (must include unit tests or explicit exemption note).
+- [x] **Define coverage and quality gates**
+  - [x] Add line/function coverage reporting workflow (e.g., `gcov`/`lcov` compatible with Fortran toolchain).
+  - [x] Set initial minimum coverage targets for unit-test scope (starting threshold, then ratchet policy).
+  - [x] Add pass/fail gating rules for new/modified code (must include unit tests or explicit exemption note).
 
-- [ ] **Integrate unit tests into CI and developer workflow**
-  - [ ] Add CI job(s) to compile and run unit tests on every PR.
-  - [ ] Add separate CI stage for existing heavier integration tests to keep signal clear.
-  - [ ] Enforce fast-feedback runtime target for unit suite (goal: a few minutes).
-  - [ ] Publish test and coverage artifacts in CI for debugging failures.
+- [x] **Integrate unit tests into CI and developer workflow**
+  - [x] Add CI job(s) to compile and run unit tests on every PR.
+  - [x] Add separate CI stage for existing heavier integration tests to keep signal clear.
+  - [x] Enforce fast-feedback runtime target for unit suite (goal: a few minutes).
+  - [x] Publish test and coverage artifacts in CI for debugging failures.
 
-- [ ] **Document developer usage and maintenance policy**
-  - [ ] Add a contributor guide section: how to write, run, and debug unit tests locally.
-  - [ ] Provide templates/examples for adding a new unit test file.
-  - [ ] Define policy for flaky tests (identification, quarantine, fix SLA).
-  - [ ] Define ownership/rotation for maintaining test infrastructure.
+- [x] **Document developer usage and maintenance policy**
+  - [x] Add a contributor guide section: how to write, run, and debug unit tests locally.
+  - [x] Provide templates/examples for adding a new unit test file.
+  - [x] Define policy for flaky tests (identification, quarantine, fix SLA).
+  - [x] Define ownership/rotation for maintaining test infrastructure.
 
 - [ ] **Rollout plan**
   - [ ] Phase 1: framework + build plumbing + 5–10 representative unit tests.

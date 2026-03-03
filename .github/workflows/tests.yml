@@ -1,0 +1,77 @@
+name: Fortran Tests
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  unit-tests:
+    name: Unit tests (fast)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran libopenmpi-dev openmpi-bin gcovr
+
+      - name: Run unit tests
+        working-directory: src
+        run: |
+          make unit-test UNIT_TEST=math
+          make unit-test UNIT_TEST=str
+
+      - name: Run coverage gate
+        working-directory: src
+        run: make unit-test-coverage UNIT_TEST=math
+
+      - name: Collect coverage artifacts
+        if: always()
+        working-directory: src
+        run: |
+          gcov math.f90 -o obj || true
+          mkdir -p artifacts
+          find . -maxdepth 2 \( -name '*.gcov' -o -name '*.gcda' -o -name '*.gcno' \) -print0 | xargs -0 -r cp --parents -t artifacts
+
+      - name: Upload unit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-artifacts
+          path: src/artifacts
+
+  integration-tests:
+    name: Integration tests (heavier)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gfortran libopenmpi-dev openmpi-bin
+
+      - name: Run integration tests
+        working-directory: src
+        run: |
+          make test_pair_force
+          make test_cg_calc
+
+      - name: Collect integration logs
+        if: always()
+        working-directory: src
+        run: |
+          mkdir -p artifacts
+          find tests -maxdepth 2 -type f \( -name '*.out' -o -name '*_test' \) -print0 | xargs -0 -r cp --parents -t artifacts
+
+      - name: Upload integration artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-artifacts
+          path: src/artifacts

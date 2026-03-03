@@ -113,7 +113,13 @@ unit-test: $(OBJECTS)
 	$(eval TESTOBJECTS := $(filter-out $(OBJDIR)/main.o,$(OBJECTS)))
 	@cp $(TESTOBJECTS) ./unit_tests
 	@cp $(subst .o,.mod,$(TESTOBJECTS)) ./unit_tests
-	$(MAKE) -C ./unit_tests run UNIT_TEST=$(if $(UNIT_TEST),$(UNIT_TEST),math) FFLAGS="-Wall -O0 -g -fcheck=all -fbacktrace"
+	$(MAKE) -C ./unit_tests run UNIT_TEST=$(if $(UNIT_TEST),$(UNIT_TEST),math) FFLAGS="$(if $(UNIT_TEST_FFLAGS),$(UNIT_TEST_FFLAGS),-Wall -O0 -g -fcheck=all -fbacktrace)"
+
+.PHONY: unit-test-coverage
+unit-test-coverage:
+	$(MAKE) clean
+	$(MAKE) unit-test UNIT_TEST=$(if $(UNIT_TEST),$(UNIT_TEST),math) FFLAGS="-Wall -O0 -g -fcheck=all -fbacktrace --coverage -J$(OBJDIR)" UNIT_TEST_FFLAGS="-Wall -O0 -g -fcheck=all -fbacktrace --coverage"
+	$(MAKE) -C ./unit_tests coverage-report UNIT_TEST=$(if $(UNIT_TEST),$(UNIT_TEST),math)
 
 #----------------- CLEAN UP -----------------#
 
