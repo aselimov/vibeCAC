@@ -46,11 +46,11 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
 
 - [ ] **Implement first wave of baseline unit tests (high-value targets)**
   - [x] Add initial tests for deterministic numeric helpers (e.g., in `math.f90`, related utility modules).
-  - [ ] Add tests for parser/input validation edge cases where deterministic.
-  - [ ] Add boundary-condition tests:
-    - [ ] zero/empty inputs,
-    - [ ] min/max valid ranges,
-    - [ ] invalid argument handling.
+  - [x] Add tests for parser/input validation edge cases where deterministic.
+  - [x] Add boundary-condition tests:
+    - [x] zero/empty inputs,
+    - [x] min/max valid ranges,
+    - [x] invalid argument handling.
   - [x] Add floating-point tolerance policy and verify tests use consistent epsilons.
 
 - [ ] **Define coverage and quality gates**

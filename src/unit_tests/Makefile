@@ -6,7 +6,14 @@ FFLAGS ?= -Wall -O0 -g -fcheck=all -fbacktrace -J$(OBJDIR)
 
 UNIT_TEST ?= math
 
-CORE_OBJECTS = parameters.o math.o
+CORE_OBJECTS = parameters.o
+ifeq ($(UNIT_TEST),math)
+CORE_OBJECTS += math.o
+endif
+ifeq ($(UNIT_TEST),str)
+CORE_OBJECTS += str.o
+endif
+
 TEST_OBJECTS = assertions.o test_$(UNIT_TEST).o
 EXECUTABLE = ut_$(UNIT_TEST)
 

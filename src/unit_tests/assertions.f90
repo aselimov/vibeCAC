@@ -3,7 +3,7 @@ module assertions
     implicit none
 
     private
-    public :: assert_true, assert_false, assert_equal_int, assert_close_real
+    public :: assert_true, assert_false, assert_equal_int, assert_equal_str, assert_close_real
 
 contains
 
@@ -36,6 +36,17 @@ contains
             print '(A,1X,I0,1X,A,1X,I0)', 'FAIL: ' // trim(message) // ' actual=', actual, 'expected=', expected
         end if
     end subroutine assert_equal_int
+
+    subroutine assert_equal_str(actual, expected, message, failures)
+        character(len=*), intent(in) :: actual, expected
+        character(len=*), intent(in) :: message
+        integer, intent(inout) :: failures
+
+        if (trim(actual) /= trim(expected)) then
+            failures = failures + 1
+            print '(A)', 'FAIL: ' // trim(message) // ' actual="' // trim(actual) // '" expected="' // trim(expected) // '"'
+        end if
+    end subroutine assert_equal_str
 
     subroutine assert_close_real(actual, expected, eps, message, failures)
         real(kind=wp), intent(in) :: actual, expected, eps
