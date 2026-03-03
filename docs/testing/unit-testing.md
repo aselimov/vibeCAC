@@ -80,9 +80,10 @@ This compiles production and unit-test objects with `--coverage`, executes the s
 
 ### Initial coverage target
 
-- Initial line-coverage threshold for the first deterministic target (`math.f90`) is **5%**.
+- Initial line-coverage threshold for the first deterministic target (`math.f90`) is **15%**.
 - The threshold is enforced by `src/unit_tests/Makefile` and can be adjusted via:
   - `make unit-test-coverage COVERAGE_THRESHOLD=<percent>`
+- Coverage is generated with a GCC-compatible `gcov` binary (for example `gcov-15`) to match the `mpif90`/GNU Fortran toolchain.
 
 ### Gate policy for touched code
 
@@ -97,3 +98,14 @@ See `docs/testing/contributing-unit-tests.md` for:
 - a template for adding a new unit-test file,
 - flaky-test quarantine and fix SLA policy,
 - ownership and review rotation guidance for test infrastructure.
+
+## 8) Phase 1 retrospective (2026-03-03)
+
+Phase 1 goals (framework + build plumbing + representative tests) were met with the current lightweight harness and `make unit-test` integration.
+
+Retrospective outcomes and adjustments before scale-up:
+
+- Keep the local assertion harness for deterministic units; defer pFUnit adoption unless MPI-heavy unit coverage becomes a priority.
+- Keep `UNIT_TEST=<name>` selective execution as the default debug path and require new unit targets to support it.
+- Preserve the initial `math.f90` coverage gate baseline and ratchet only when adding deterministic tests, not during unrelated infrastructure changes.
+- Continue extracting pure decision helpers from stateful modules before adding tests, to avoid brittle tests tied to global state.

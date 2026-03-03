@@ -1,0 +1,12 @@
+site_name: "CAC: An implementation of the Concurrent Atomistic Continuum method"
+site_url: https://aselimov.gitlab.io/cac
+site_dir: public
+theme: readthedocs
+
+use_directory_urls: false
+
+extra_javascript:
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
+markdown_extensions:
+    - mdx_math

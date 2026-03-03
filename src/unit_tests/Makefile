@@ -1,6 +1,7 @@
 .SUFFIXES:
 
 FC = mpif90
+GCOV ?= $(shell command -v gcov-15 2>/dev/null || command -v gcov)
 OBJDIR ?= obj
 FFLAGS ?= -Wall -O0 -g -fcheck=all -fbacktrace -J$(OBJDIR)
 
@@ -26,6 +27,10 @@ ifeq ($(UNIT_TEST),input_validation)
 CORE_OBJECTS += input_validation.o
 endif
 
+ifeq ($(UNIT_TEST),atom_types)
+CORE_OBJECTS += str.o logger.o atom_types.o
+endif
+
 TEST_OBJECTS = assertions.o test_$(UNIT_TEST).o
 EXECUTABLE = ut_$(UNIT_TEST)
 
@@ -39,13 +44,14 @@ $(EXECUTABLE): $(CORE_OBJECTS) $(TEST_OBJECTS)
 run: $(EXECUTABLE)
 	./$(EXECUTABLE)
 
-COVERAGE_THRESHOLD ?= 5
+COVERAGE_THRESHOLD ?= 15
 
 coverage-report: $(EXECUTABLE)
 	./$(EXECUTABLE)
 	@if [ "$(UNIT_TEST)" = "math" ]; then \
-		OUT=$$(cd .. && gcov -b -c math.f90 -o obj); \
+		OUT=$$(cd .. && $(GCOV) -b -c math.f90 -o obj); \
 		PCT=$$(printf "%s\n" "$$OUT" | awk '/Lines executed:/{gsub("executed:","",$$2); gsub("%","",$$2); print $$2; exit}'); \
+		test -n "$$PCT" || ( echo "FAIL: could not parse gcov output. Ensure GCOV matches mpif90 toolchain."; exit 1 ); \
 		echo "math.f90 line coverage: $${PCT}%"; \
 		awk -v pct="$$PCT" -v th="$(COVERAGE_THRESHOLD)" 'BEGIN{exit !(pct+0 >= th+0)}' || \
 		( echo "FAIL: math.f90 coverage $${PCT}% is below threshold $(COVERAGE_THRESHOLD)%"; exit 1 ); \

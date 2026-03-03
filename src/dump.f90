@@ -49,7 +49,7 @@ module dump
         !Parse the dump command
         character(len = *), intent(in) :: line
         character(len = read_len) :: label, tmptxt, msg, dtype, dgroup
-        integer :: iospara, ppos
+        integer :: iospara
 
         dump_num = dump_num + 1
         read(line,*, iostat=iospara) label, dump_name(dump_num), dgroup, dtype, dump_every(dump_num), base_filename(dump_num)
@@ -70,10 +70,7 @@ module dump
         call log_msg(msg)
 
         !Now get rid of the extension on the filename
-        ppos =  scan(base_filename(dump_num), ".")
-        if(ppos > 0) then 
-            base_filename(dump_num)(ppos:ppos+3) = ''
-        end if
+        base_filename(dump_num) = strip_dump_extension(base_filename(dump_num))
 
         !Parse the dump group
         dump_group(dump_num) = get_group_index(dgroup)
@@ -119,7 +116,7 @@ module dump
         integer :: type_for_dump, dg
         character(len = *), intent(in) :: line
         character(len = read_len) :: label, tmptxt, msg, dtype, dgroup, fname
-        integer :: iospara, ppos
+        integer :: iospara
 
         fname=''
         read(line,*, iostat=iospara) label, dgroup, dtype, fname

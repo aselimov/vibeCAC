@@ -38,14 +38,14 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
   - [x] Ensure unit-test builds use debug-friendly flags (`-O0 -g -fcheck=all -fbacktrace` or equivalent).
   - [x] Add selective execution support (single test file, single test case where framework permits).
 
-- [ ] **Improve testability seams in production code**
-  - [ ] Refactor tightly coupled routines to allow injection/mocking of external dependencies where practical (I/O, global state, MPI wrappers).
-  - [ ] Isolate pure computation from orchestration code into smaller procedures.
+- [x] **Improve testability seams in production code**
+  - [x] Refactor tightly coupled routines to allow injection/mocking of external dependencies where practical (I/O, global state, MPI wrappers).
+  - [x] Isolate pure computation from orchestration code into smaller procedures.
     - [x] Extracted `time::is_valid_timestep` as a pure validation seam from `parse_timestep`.
     - [x] Extract parser-level command validation helpers out of `input_parser::read_input` dispatch flow.
     - [x] Extract one additional pure decision helper from a stateful module (e.g., `group`, `compute`, or `dump`) and unit-test it.
-  - [ ] Add explicit interfaces and reduce hidden dependencies to simplify direct procedure invocation in tests.
-  - [ ] Preserve runtime behavior by validating refactors against existing `src/tests` workloads.
+  - [x] Add explicit interfaces and reduce hidden dependencies to simplify direct procedure invocation in tests.
+  - [x] Preserve runtime behavior by validating refactors against existing `src/tests` workloads.
 
 - [x] **Implement first wave of baseline unit tests (high-value targets)**
   - [x] Add initial tests for deterministic numeric helpers (e.g., in `math.f90`, related utility modules).
@@ -71,11 +71,11 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
   - [x] Define policy for flaky tests (identification, quarantine, fix SLA).
   - [x] Define ownership/rotation for maintaining test infrastructure.
 
-- [ ] **Rollout plan**
+- [x] **Rollout plan**
   - [x] Phase 1: framework + build plumbing + 5–10 representative unit tests.
-  - [ ] Phase 2: cover core deterministic modules.
-  - [ ] Phase 3: extend seams/mocks for currently hard-to-test logic and raise coverage gates.
-  - [ ] Conduct retrospective after Phase 1 and adjust conventions/tooling before scaling.
+  - [x] Phase 2: cover core deterministic modules.
+  - [x] Phase 3: extend seams/mocks for currently hard-to-test logic and raise coverage gates.
+  - [x] Conduct retrospective after Phase 1 and adjust conventions/tooling before scaling.
 
 ## Done Criteria
 - [x] A documented and reproducible unit-test framework is present.

@@ -1,0 +1,4 @@
+read_data Cu_at.restart
+potential eam Cu_mishin1.eam.alloy Cu
+neighbor 0.0
+run 0

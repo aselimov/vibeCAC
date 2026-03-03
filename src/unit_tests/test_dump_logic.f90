@@ -12,6 +12,8 @@ program test_dump_logic
     call test_normalize_dump_every_positive_unchanged(failures)
     call test_should_write_dump_on_dump_interval(failures)
     call test_should_write_dump_on_force_dump(failures)
+    call test_strip_dump_extension_removes_dot_suffix(failures)
+    call test_strip_dump_extension_keeps_name_without_dot(failures)
 
     if (failures > 0) then
         print '(A,I0)', 'test_dump_logic failed with ', failures
@@ -65,5 +67,27 @@ contains
         ! Assert
         call assert_true(should_dump, 'writes dump when force_dump is true', failures)
     end subroutine test_should_write_dump_on_force_dump
+
+    subroutine test_strip_dump_extension_removes_dot_suffix(failures)
+        integer, intent(inout) :: failures
+        character(len=32) :: stripped
+
+        ! Arrange / Act
+        stripped = strip_dump_extension('traj.out')
+
+        ! Assert
+        call assert_equal_str(trim(adjustl(stripped)), 'traj', 'strip_dump_extension removes extension', failures)
+    end subroutine test_strip_dump_extension_removes_dot_suffix
+
+    subroutine test_strip_dump_extension_keeps_name_without_dot(failures)
+        integer, intent(inout) :: failures
+        character(len=32) :: stripped
+
+        ! Arrange / Act
+        stripped = strip_dump_extension('trajectory')
+
+        ! Assert
+        call assert_equal_str(trim(adjustl(stripped)), 'trajectory', 'strip_dump_extension keeps name without dot', failures)
+    end subroutine test_strip_dump_extension_keeps_name_without_dot
 
 end program test_dump_logic

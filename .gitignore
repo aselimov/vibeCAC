@@ -1,0 +1,15 @@
+*.mod
+*.o
+fort.*
+*.out
+validation/
+public/
+*_test
+*.log
+*.lmp
+potentials/*
+src/obj/*
+src/tests/gsf
+src/tests/multi_pair_force
+*.gcda 
+*.gcno

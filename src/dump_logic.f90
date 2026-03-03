@@ -2,7 +2,7 @@ module dump_logic
 
     implicit none
 
-    public :: normalize_dump_every, should_write_dump
+    public :: normalize_dump_every, should_write_dump, strip_dump_extension
 
 contains
 
@@ -21,5 +21,17 @@ contains
 
         should_write_dump = force_dump .or. (mod(timestep, dump_every) == 0)
     end function should_write_dump
+
+    pure function strip_dump_extension(filename) result(stripped_filename)
+        character(len=*), intent(in) :: filename
+        character(len=len(filename)) :: stripped_filename
+        integer :: dot_index
+
+        stripped_filename = filename
+        dot_index = scan(filename, ".")
+        if (dot_index > 0) then
+            stripped_filename(dot_index:) = ""
+        end if
+    end function strip_dump_extension
 
 end module dump_logic
