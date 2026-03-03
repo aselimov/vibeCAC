@@ -41,6 +41,9 @@ Build a repeatable, automated unit-testing workflow for individual Fortran proce
 - [ ] **Improve testability seams in production code**
   - [ ] Refactor tightly coupled routines to allow injection/mocking of external dependencies where practical (I/O, global state, MPI wrappers).
   - [ ] Isolate pure computation from orchestration code into smaller procedures.
+    - [x] Extracted `time::is_valid_timestep` as a pure validation seam from `parse_timestep`.
+    - [ ] Extract parser-level command validation helpers out of `input_parser::read_input` dispatch flow.
+    - [ ] Extract one additional pure decision helper from a stateful module (e.g., `group`, `compute`, or `dump`) and unit-test it.
   - [ ] Add explicit interfaces and reduce hidden dependencies to simplify direct procedure invocation in tests.
   - [ ] Preserve runtime behavior by validating refactors against existing `src/tests` workloads.
 
