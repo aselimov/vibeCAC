@@ -4,7 +4,11 @@ FC=mpif90
 OBJDIR=obj
 SRCS := $(wildcard *.f90)
 OBJECTS := $(addprefix $(OBJDIR)/,$(SRCS:%.f90=%.o))
-FFLAGS=-Wall -mcmodel=large -O2 -g -fbacktrace -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow,denormal -J$(OBJDIR)
+ARCH := $(shell uname -m)
+FFLAGS=-Wall -O2 -g -fbacktrace -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow,denormal -J$(OBJDIR)
+ifeq ($(ARCH),x86_64)
+FFLAGS += -mcmodel=large
+endif
 #
 #FFLAGS=-O3 -g -J$(OBJDIR) 
 

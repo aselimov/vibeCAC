@@ -41,9 +41,6 @@ module box
 
         if(any(period)) then
             periodic = .true.
-            if(.not.allocated(pb_node))then
-                allocate(pb_node(3,max_basisnum, node_num_lr))
-            end if
         else 
             periodic = .false.
         end if
