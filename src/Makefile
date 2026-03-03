@@ -111,6 +111,7 @@ test_mixed_potential: $(OBJECTS)
 .PHONY: unit-test
 unit-test: $(OBJECTS)
 	$(eval TESTOBJECTS := $(filter-out $(OBJDIR)/main.o,$(OBJECTS)))
+	$(MAKE) -C ./unit_tests clean
 	@cp $(TESTOBJECTS) ./unit_tests
 	@cp $(subst .o,.mod,$(TESTOBJECTS)) ./unit_tests
 	$(MAKE) -C ./unit_tests run UNIT_TEST=$(if $(UNIT_TEST),$(UNIT_TEST),math) FFLAGS="$(if $(UNIT_TEST_FFLAGS),$(UNIT_TEST_FFLAGS),-Wall -O0 -g -fcheck=all -fbacktrace)"
