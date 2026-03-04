@@ -81,7 +81,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 | time | `is_valid_timestep`, `read_timestep_value`, `validate_timestep` | partially covered | low | none | S |
 | vel_verlet | `verlet`, `update_r`, `update_vel` | untested | high | global state, orchestration complexity | M |
 
-- [ ] **2) Prioritize a targeted backlog for next increments**
+- [x] **2) Prioritize a targeted backlog for next increments**
   - [x] Define a top-10 candidate list of untested or weakly-tested routines.
   - Top-10 candidate routines (from current untested/partially covered inventory):
     1. `compute: compute_pe`
@@ -106,10 +106,21 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     8. `berendsen: rescale_box` (medium impact, medium determinism)
     9. `math: in_cutoff` (medium impact, high determinism; currently partial coverage)
     10. `neighbors: neighbor_lists` (high impact, lower near-term determinism due to orchestration/global-state coupling)
-  - [ ] Label each backlog item as:
-    - [ ] direct unit-testable now,
-    - [ ] needs seam extraction,
-    - [ ] better suited for integration tests.
+  - [x] Label each backlog item as:
+  - Backlog item labels:
+    1. `compute: compute_pe` -> direct unit-testable now
+    2. `compute: compute_temp` -> direct unit-testable now
+    3. `box: cross_pb` -> direct unit-testable now
+    4. `potential: update_force` -> needs seam extraction
+    5. `integration: update_intpo` -> needs seam extraction
+    6. `temp: rescale_v` -> direct unit-testable now
+    7. `thermo: write_thermo_out` -> needs seam extraction
+    8. `berendsen: rescale_box` -> needs seam extraction
+    9. `math: in_cutoff` -> direct unit-testable now
+    10. `neighbors: neighbor_lists` -> better suited for integration tests
+  - [x] direct unit-testable now,
+  - [x] needs seam extraction,
+  - [x] better suited for integration tests.
 
 - [ ] **3) Expand assertion and test helper utilities**
   - [ ] Add/standardize helper assertions for:
