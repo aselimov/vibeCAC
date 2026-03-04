@@ -12,6 +12,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install toolchain
         run: |
@@ -27,6 +29,10 @@ jobs:
       - name: Run coverage gate
         working-directory: src
         run: make unit-test-coverage UNIT_TEST=math
+
+      - name: Coverage delta for touched modules (PR)
+        if: github.event_name == 'pull_request'
+        run: .github/scripts/coverage_delta.sh
 
       - name: Collect coverage artifacts
         if: always()
