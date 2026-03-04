@@ -13,6 +13,7 @@ program test_box
     call test_cross_pb_keeps_exact_boundaries(failures)
     call test_cross_pb_regression_does_not_wrap_exact_upper_bound(failures)
     call test_cross_pb_ignores_nonperiodic_out_of_bounds(failures)
+    call test_cross_pb_wraps_single_axis_only(failures)
     call test_restore_pb_applies_only_periodic_moves(failures)
     call test_restore_pb_nonperiodic_moves_do_not_set_flag(failures)
 
@@ -100,6 +101,25 @@ contains
             'cross_pb should only wrap periodic dimensions', failures)
         call assert_equal_int_array(info, [0, -1, 0], 'cross_pb should only report periodic-dimension crossings', failures)
     end subroutine test_cross_pb_ignores_nonperiodic_out_of_bounds
+
+    subroutine test_cross_pb_wraps_single_axis_only(failures)
+        integer, intent(inout) :: failures
+        real(kind=wp) :: r(3)
+        integer :: info(3)
+
+        ! Arrange
+        call set_test_box(-5.0_wp, 5.0_wp)
+        period = [.true., .false., .true.]
+        r = [-5.5_wp, 2.0_wp, -5.0_wp]
+
+        ! Act
+        call cross_pb(r, info)
+
+        ! Assert
+        call assert_close_real_array(r, [4.5_wp, 2.0_wp, -5.0_wp], 1.0e-12_wp, 0.0_wp, &
+            'cross_pb should wrap only the periodic axis that crosses the lower bound', failures)
+        call assert_equal_int_array(info, [1, 0, 0], 'cross_pb should flag only the wrapped periodic axis', failures)
+    end subroutine test_cross_pb_wraps_single_axis_only
 
     subroutine test_restore_pb_applies_only_periodic_moves(failures)
         integer, intent(inout) :: failures

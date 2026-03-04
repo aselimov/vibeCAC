@@ -233,4 +233,4 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - Add `src/unit_tests/test_compute.f90` cases for `compute_pe`: baseline energy sum, empty/zero-interaction boundary, and guard-rail invalid-state behavior.
     - Add `src/unit_tests/test_compute.f90` cases for `compute_temp`: nominal temperature calculation, zero-velocity boundary, and invalid degrees-of-freedom handling.
     - Expand `src/unit_tests/test_box.f90` for `cross_pb`: inside-boundary no-op, single-axis wrap, multi-axis wrap, and exact-boundary edge case.
-- [ ] At least one newly targeted module receives expanded unit-test coverage under this plan.
+- [x] At least one newly targeted module receives expanded unit-test coverage under this plan.
