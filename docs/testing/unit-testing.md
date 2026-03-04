@@ -81,8 +81,9 @@ This compiles production and unit-test objects with `--coverage`, executes the s
 ### Initial coverage target
 
 - Initial line-coverage threshold for the first deterministic target (`math.f90`) is **15%**.
-- The threshold is enforced by `src/unit_tests/Makefile` and can be adjusted via:
-  - `make unit-test-coverage COVERAGE_THRESHOLD=<percent>`
+- Initial branch-coverage threshold for `math.f90` is **5%**.
+- Thresholds are enforced by `src/unit_tests/Makefile` and can be adjusted via:
+  - `make unit-test-coverage COVERAGE_THRESHOLD=<percent> BRANCH_COVERAGE_THRESHOLD=<percent>`
 - Coverage is generated with a GCC-compatible `gcov` binary (for example `gcov-15`) to match the `mpif90`/GNU Fortran toolchain.
 
 ### Gate policy for touched code

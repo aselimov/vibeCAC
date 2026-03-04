@@ -49,16 +49,22 @@ run: $(EXECUTABLE)
 	./$(EXECUTABLE)
 
 COVERAGE_THRESHOLD ?= 15
+BRANCH_COVERAGE_THRESHOLD ?= 5
 
 coverage-report: $(EXECUTABLE)
 	./$(EXECUTABLE)
 	@if [ "$(UNIT_TEST)" = "math" ]; then \
 		OUT=$$(cd .. && $(GCOV) -b -c math.f90 -o obj); \
-		PCT=$$(printf "%s\n" "$$OUT" | awk '/Lines executed:/{gsub("executed:","",$$2); gsub("%","",$$2); print $$2; exit}'); \
-		test -n "$$PCT" || ( echo "FAIL: could not parse gcov output. Ensure GCOV matches mpif90 toolchain."; exit 1 ); \
-		echo "math.f90 line coverage: $${PCT}%"; \
-		awk -v pct="$$PCT" -v th="$(COVERAGE_THRESHOLD)" 'BEGIN{exit !(pct+0 >= th+0)}' || \
-		( echo "FAIL: math.f90 coverage $${PCT}% is below threshold $(COVERAGE_THRESHOLD)%"; exit 1 ); \
+		LINE_PCT=$$(printf "%s\n" "$$OUT" | awk '/Lines executed:/{gsub("executed:","",$$2); gsub("%","",$$2); print $$2; exit}'); \
+		BRANCH_PCT=$$(printf "%s\n" "$$OUT" | awk '/Branches executed:/{gsub("executed:","",$$2); gsub("%","",$$2); print $$2; exit}'); \
+		test -n "$$LINE_PCT" || ( echo "FAIL: could not parse gcov line coverage output. Ensure GCOV matches mpif90 toolchain."; exit 1 ); \
+		test -n "$$BRANCH_PCT" || ( echo "FAIL: could not parse gcov branch coverage output. Ensure GCOV matches mpif90 toolchain."; exit 1 ); \
+		echo "math.f90 line coverage: $${LINE_PCT}%"; \
+		echo "math.f90 branch coverage: $${BRANCH_PCT}%"; \
+		awk -v pct="$$LINE_PCT" -v th="$(COVERAGE_THRESHOLD)" 'BEGIN{exit !(pct+0 >= th+0)}' || \
+		( echo "FAIL: math.f90 line coverage $${LINE_PCT}% is below threshold $(COVERAGE_THRESHOLD)%"; exit 1 ); \
+		awk -v pct="$$BRANCH_PCT" -v th="$(BRANCH_COVERAGE_THRESHOLD)" 'BEGIN{exit !(pct+0 >= th+0)}' || \
+		( echo "FAIL: math.f90 branch coverage $${BRANCH_PCT}% is below threshold $(BRANCH_COVERAGE_THRESHOLD)%"; exit 1 ); \
 	fi
 
 %.o: %.f90

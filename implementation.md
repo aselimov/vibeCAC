@@ -156,7 +156,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 
 - [ ] **6) Strengthen coverage quality (not just percentage)**
   - [x] Track coverage deltas per PR for touched modules.
-  - [ ] Add branch/condition-focused checks for highly conditional routines where tooling allows.
+  - [x] Add branch/condition-focused checks for highly conditional routines where tooling allows.
   - [ ] Define and enforce “meaningful coverage” review rules:
     - [ ] no assertion-free tests,
     - [ ] no pure smoke tests for logic-heavy routines,

@@ -52,7 +52,7 @@ end program test_example
 - Re-run a single target repeatedly:
   - `make unit-test UNIT_TEST=<target>`
 - For coverage-related failures, run:
-  - `make unit-test-coverage UNIT_TEST=math COVERAGE_THRESHOLD=<value>`
+  - `make unit-test-coverage UNIT_TEST=math COVERAGE_THRESHOLD=<value> BRANCH_COVERAGE_THRESHOLD=<value>`
 
 ## Flaky-test policy
 
