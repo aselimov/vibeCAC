@@ -131,7 +131,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Consolidate common fixtures/builders to reduce repeated setup code.
 
 - [ ] **4) Implement second-wave deterministic module tests**
-  - [ ] Add tests for branch-heavy validation and parsing helpers not yet covered.
+  - [x] Add tests for branch-heavy validation and parsing helpers not yet covered.
   - [ ] Add tests for numeric/state transition helpers with boundary and invalid-input focus.
   - [ ] For each selected module, include:
     - [ ] happy-path behavior,

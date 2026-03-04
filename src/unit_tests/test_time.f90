@@ -15,7 +15,9 @@ program test_time
     call test_is_valid_timestep_rejects_zero(failures)
     call test_is_valid_timestep_rejects_negative(failures)
     call test_read_timestep_value_parses_numeric_argument(failures)
+    call test_read_timestep_value_rejects_nonnumeric_argument(failures)
     call test_validate_timestep_calls_handler_on_invalid_value(failures)
+    call test_validate_timestep_does_not_call_handler_on_valid_value(failures)
 
     call end_suite(failures, 'test_time')
 
@@ -61,6 +63,18 @@ contains
         call assert_close_real(parsed_dt, 0.0125_wp, 1.0e-12_wp, 'timestep parser should return parsed value', failures)
     end subroutine test_read_timestep_value_parses_numeric_argument
 
+    subroutine test_read_timestep_value_rejects_nonnumeric_argument(failures)
+        integer, intent(inout) :: failures
+        real(kind=wp) :: parsed_dt
+        integer :: iospara
+
+        ! Arrange / Act
+        call read_timestep_value('timestep abc', parsed_dt, iospara)
+
+        ! Assert
+        call assert_true(iospara > 0, 'timestep parser should fail when numeric argument is non-numeric', failures)
+    end subroutine test_read_timestep_value_rejects_nonnumeric_argument
+
     subroutine test_validate_timestep_calls_handler_on_invalid_value(failures)
         integer, intent(inout) :: failures
 
@@ -73,5 +87,18 @@ contains
         ! Assert
         call assert_true(error_called, 'invalid timestep should trigger injected error handler', failures)
     end subroutine test_validate_timestep_calls_handler_on_invalid_value
+
+    subroutine test_validate_timestep_does_not_call_handler_on_valid_value(failures)
+        integer, intent(inout) :: failures
+
+        ! Arrange
+        error_called = .false.
+
+        ! Act
+        call validate_timestep(1.0e-6_wp, capture_error)
+
+        ! Assert
+        call assert_false(error_called, 'valid timestep should not trigger injected error handler', failures)
+    end subroutine test_validate_timestep_does_not_call_handler_on_valid_value
 
 end program test_time
