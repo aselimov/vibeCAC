@@ -176,13 +176,31 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - [x] running failed tests only (where supported),
     - [x] collecting local coverage output.
 
-- [ ] **9) Define module-by-module completion criteria**
-  - [ ] For each prioritized module, define a “done” checklist:
-    - [ ] core branches covered,
-    - [ ] boundary and invalid cases present,
-    - [ ] no flaky behavior under repeated runs,
-    - [ ] coverage meets module threshold.
-  - [ ] Track completion in a living table with owner and last-update date.
+- [x] **9) Define module-by-module completion criteria**
+  - [x] For each prioritized module, define a “done” checklist:
+    - [x] core branches covered,
+    - [x] boundary and invalid cases present,
+    - [x] no flaky behavior under repeated runs,
+    - [x] coverage meets module threshold.
+  - Module-level "done" checklist (applies to each prioritized module):
+    - Core decision branches and dispatch paths are covered by targeted assertions.
+    - Boundary-value and invalid-input cases are present for validators/parsers/state transitions.
+    - Deterministic repeatability check passes (minimum 20 repeated local runs with no intermittent failures).
+    - Line coverage for the module meets or exceeds the threshold listed in the tracking table.
+  - [x] Track completion in a living table with owner and last-update date.
+  - Living completion table (prioritized modules):
+
+| module | coverage threshold | owner | last update | checklist status |
+| --- | --- | --- | --- | --- |
+| `compute` (`compute_pe`, `compute_temp`) | >= 85% | unassigned | 2026-03-03 | in progress |
+| `box` (`cross_pb`) | >= 90% | unassigned | 2026-03-03 | in progress |
+| `potential` (`update_force`) | >= 80% | unassigned | 2026-03-03 | in progress |
+| `integration` (`update_intpo`) | >= 80% | unassigned | 2026-03-03 | in progress |
+| `temp` (`rescale_v`) | >= 85% | unassigned | 2026-03-03 | in progress |
+| `thermo` (`write_thermo_out`) | >= 80% | unassigned | 2026-03-03 | in progress |
+| `berendsen` (`rescale_box`) | >= 80% | unassigned | 2026-03-03 | in progress |
+| `math` (`in_cutoff`) | >= 90% | unassigned | 2026-03-03 | in progress |
+| `neighbors` (`neighbor_lists`) | >= 75% | unassigned | 2026-03-03 | in progress |
 
 - [ ] **10) Plan incremental execution timeline**
   - [ ] Iteration A (1–2 weeks): inventory refresh, top-10 backlog, helper utility upgrades.
