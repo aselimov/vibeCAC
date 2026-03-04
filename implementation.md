@@ -159,7 +159,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Add branch/condition-focused checks for highly conditional routines where tooling allows.
   - [ ] Define and enforce “meaningful coverage” review rules:
     - [x] no assertion-free tests,
-    - [ ] no pure smoke tests for logic-heavy routines,
+    - [x] no pure smoke tests for logic-heavy routines,
     - [ ] required negative-case coverage for validators/parsers.
 
 - [ ] **7) Add regression-test intake workflow**

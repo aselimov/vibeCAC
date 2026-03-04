@@ -15,10 +15,22 @@ if [ "${#test_files[@]}" -eq 0 ]; then
 fi
 
 missing_assertions=()
+smoke_only_logic_heavy=()
 for file in "${test_files[@]}"; do
   if ! rg -qi "call[[:space:]]+assert_[a-z0-9_]+[[:space:]]*\\(" "$file"; then
     missing_assertions+=("$file")
   fi
+
+  case "$(basename "$file")" in
+    test_compute.f90|test_potential.f90|test_integration.f90|test_box.f90|test_temp.f90|test_neighbors.f90|test_thermo.f90|test_berendsen.f90|test_math.f90)
+      total_asserts="$(rg -io "call[[:space:]]+assert_[a-z0-9_]+[[:space:]]*\\(" "$file" | wc -l | tr -d ' ')"
+      trivial_asserts="$(rg -io "call[[:space:]]+assert_true[[:space:]]*\\([[:space:]]*\\.true\\.|call[[:space:]]+assert_false[[:space:]]*\\([[:space:]]*\\.false\\." "$file" || true)"
+      trivial_asserts="$(printf '%s\n' "$trivial_asserts" | wc -l | tr -d ' ')"
+      if [ "$total_asserts" -gt 0 ] && [ "$total_asserts" -eq "$trivial_asserts" ]; then
+        smoke_only_logic_heavy+=("$file")
+      fi
+      ;;
+  esac
 done
 
 if [ "${#missing_assertions[@]}" -gt 0 ]; then
@@ -28,4 +40,11 @@ if [ "${#missing_assertions[@]}" -gt 0 ]; then
   exit 1
 fi
 
-echo "Assertion presence check passed for ${#test_files[@]} unit-test file(s)."
+if [ "${#smoke_only_logic_heavy[@]}" -gt 0 ]; then
+  echo "FAIL: pure smoke tests are not allowed for logic-heavy routines."
+  echo "Replace tautological assertions with behavioral checks (expected vs actual state/output) in:"
+  printf '  - %s\n' "${smoke_only_logic_heavy[@]}"
+  exit 1
+fi
+
+echo "Unit-test assertion checks passed for ${#test_files[@]} file(s)."

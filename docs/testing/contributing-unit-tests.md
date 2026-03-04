@@ -70,6 +70,7 @@ If a flaky test is found:
 ## Meaningful coverage review rules
 
 - Assertion-free unit tests are disallowed. Every `src/unit_tests/test_*.f90` file must include at least one `call assert_*` check.
+- Pure smoke tests are disallowed for logic-heavy routines (`compute`, `potential`, `integration`, `box`, `temp`, `neighbors`, `thermo`, `berendsen`, `math`). Tests for these targets must include at least one non-tautological behavioral assertion.
 - CI enforces this with `.github/scripts/enforce_unit_assertions.sh`.
 
 ## Ownership and rotation
