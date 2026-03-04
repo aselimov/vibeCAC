@@ -202,7 +202,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 | `math` (`in_cutoff`) | >= 90% | unassigned | 2026-03-03 | in progress |
 | `neighbors` (`neighbor_lists`) | >= 75% | unassigned | 2026-03-03 | in progress |
 
-- [ ] **10) Plan incremental execution timeline**
+- [x] **10) Plan incremental execution timeline**
   - [x] Iteration A (1–2 weeks): inventory refresh, top-10 backlog, helper utility upgrades.
   - [x] Iteration B (1–2 weeks): second-wave tests for easiest high-impact modules.
     - Scope (2026-03-03 to 2026-03-17): `compute` (`compute_pe`, `compute_temp`), `box` (`cross_pb`), `temp` (`rescale_v`), and `math` (`in_cutoff`).
@@ -210,7 +210,9 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Iteration C (2+ weeks): seam extraction in harder modules + accompanying tests.
     - Scope (2026-03-17 to 2026-03-31): `potential` (`update_force`), `integration` (`update_intpo`), `thermo` (`write_thermo_out`), and `berendsen` (`rescale_box`).
     - Deliverables: extract pure decision helpers + dependency adapters, add focused unit tests around extracted seams, and run unit suite plus targeted integration coverage where environment permits.
-  - [ ] Iteration D (ongoing): regression intake + threshold ratcheting + periodic test debt cleanup.
+  - [x] Iteration D (ongoing): regression intake + threshold ratcheting + periodic test debt cleanup.
+    - Scope (starting 2026-03-31, ongoing cadence): intake deterministic-logic bug reproducers each sprint, raise module coverage thresholds in +2-5% increments when stable, and prune/merge redundant regression tests during monthly maintenance.
+    - Deliverables: maintain a rolling regression queue with issue links, publish threshold-ratchet decisions in PR notes, and complete a monthly test-debt cleanup pass with documented removals/consolidations.
 
 ## Risks and Mitigations
 - **Risk:** Coverage rises via shallow tests.  
@@ -223,7 +225,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   **Mitigation:** Track per-test timing, split slow tests, and keep fast suite as default gate.
 
 ## Definition of Done (This Continuation Plan)
-- [ ] Archived prior completed implementation plan with descriptive naming.
+- [x] Archived prior completed implementation plan with descriptive naming.
 - [ ] New continuation plan committed at `implementation.md`.
 - [ ] First prioritized backlog slice selected and linked to concrete test tasks.
 - [ ] At least one newly targeted module receives expanded unit-test coverage under this plan.
