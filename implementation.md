@@ -94,7 +94,18 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     8. `thermo: write_thermo_out`
     9. `berendsen: rescale_box`
     10. `math: in_cutoff` (partially covered)
-  - [ ] Prioritize by defect impact and determinism (not just ease).
+  - [x] Prioritize by defect impact and determinism (not just ease).
+  - Prioritized order (highest first) using defect impact + determinism weighting:
+    1. `compute: compute_pe` (high impact, high determinism)
+    2. `compute: compute_temp` (high impact, high determinism)
+    3. `box: cross_pb` (high impact, high determinism)
+    4. `potential: update_force` (high impact, medium determinism)
+    5. `integration: update_intpo` (high impact, medium determinism)
+    6. `temp: rescale_v` (medium-high impact, high determinism)
+    7. `thermo: write_thermo_out` (high impact, medium determinism due to output formatting/state coupling)
+    8. `berendsen: rescale_box` (medium impact, medium determinism)
+    9. `math: in_cutoff` (medium impact, high determinism; currently partial coverage)
+    10. `neighbors: neighbor_lists` (high impact, lower near-term determinism due to orchestration/global-state coupling)
   - [ ] Label each backlog item as:
     - [ ] direct unit-testable now,
     - [ ] needs seam extraction,
