@@ -168,7 +168,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Periodically review regression set for overlaps and cleanup opportunities.
 
 - [ ] **8) Improve CI feedback and suite ergonomics**
-  - [ ] Ensure fast unit suite remains default PR gate.
+  - [x] Ensure fast unit suite remains default PR gate.
   - [ ] Keep optional/long-running tests separated and clearly labeled.
   - [ ] Publish per-test timing and identify outliers to keep runtime budget controlled.
   - [ ] Add quick local commands/documentation for:
