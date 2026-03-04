@@ -14,6 +14,22 @@ module potential
     !This code handles controlling which potentials are called and processes potential input
     integer :: pnum, enum, fnum 
 
+    abstract interface
+        subroutine force_adapter_proc
+        end subroutine force_adapter_proc
+
+        real(kind=wp) function walltime_adapter_proc()
+            import :: wp
+        end function walltime_adapter_proc
+    end interface
+
+    procedure(force_adapter_proc), pointer :: pre_force_adapter => pre_force
+    procedure(force_adapter_proc), pointer :: post_force_adapter => post_force
+    procedure(force_adapter_proc), pointer :: update_force_eam_adapter => update_force_eam
+    procedure(force_adapter_proc), pointer :: update_force_morse_adapter => update_force_morse
+    procedure(force_adapter_proc), pointer :: update_equiv_adapter => update_equiv
+    procedure(walltime_adapter_proc), pointer :: walltime_reader => default_walltime
+
     !Spline arrays
     public 
     contains
@@ -30,6 +46,7 @@ module potential
         type_to_pair = 0
         type_to_dens = 0 
         pot_map = 0
+        call reset_update_force_adapters
     end subroutine potential_defaults
 
     subroutine parse_potential(line)
@@ -110,8 +127,8 @@ module potential
 
         real(kind=wp) :: t_start, t_end
 
-        call pre_force
-        t_start = mpi_wtime()
+        call pre_force_adapter
+        t_start = walltime_reader()
 
         !First zero arrays
         if(ele_num > 0) then 
@@ -153,17 +170,42 @@ module potential
             end if
         end if
 
-        if(potential_types(1)) call update_force_eam
+        if(potential_types(1)) call update_force_eam_adapter
         
-        if(potential_types(2)) call update_force_morse
+        if(potential_types(2)) call update_force_morse_adapter
 
         !Now call update_equiv to update equivalent node value arrays if there are finite elements
-        if(ele_num > 0) call update_equiv
-        t_end = mpi_wtime()
+        if(ele_num > 0) call update_equiv_adapter
+        t_end = walltime_reader()
 
         walltime(2) = walltime(2) + (t_end-t_start)
-        call post_force
+        call post_force_adapter
     end subroutine update_force
+
+    subroutine set_update_force_adapters(pre_adapter, post_adapter, eam_adapter, morse_adapter, equiv_adapter, walltime_adapter)
+        procedure(force_adapter_proc), optional :: pre_adapter, post_adapter, eam_adapter, morse_adapter, equiv_adapter
+        procedure(walltime_adapter_proc), optional :: walltime_adapter
+
+        if (present(pre_adapter)) pre_force_adapter => pre_adapter
+        if (present(post_adapter)) post_force_adapter => post_adapter
+        if (present(eam_adapter)) update_force_eam_adapter => eam_adapter
+        if (present(morse_adapter)) update_force_morse_adapter => morse_adapter
+        if (present(equiv_adapter)) update_equiv_adapter => equiv_adapter
+        if (present(walltime_adapter)) walltime_reader => walltime_adapter
+    end subroutine set_update_force_adapters
+
+    subroutine reset_update_force_adapters
+        pre_force_adapter => pre_force
+        post_force_adapter => post_force
+        update_force_eam_adapter => update_force_eam
+        update_force_morse_adapter => update_force_morse
+        update_equiv_adapter => update_equiv
+        walltime_reader => default_walltime
+    end subroutine reset_update_force_adapters
+
+    real(kind=wp) function default_walltime()
+        default_walltime = mpi_wtime()
+    end function default_walltime
 
     subroutine pre_force
         return

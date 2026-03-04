@@ -151,7 +151,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - `neighbors:neighbor_lists` - intertwines neighbor rebuild policy, allocation paths, and shared state mutation.
     - `integration:update_intpo` - combines integration-policy decisions with direct updates to global integration state.
   - [x] Extract pure decision helpers from stateful paths where behavior can be preserved.
-  - [ ] Introduce narrow interfaces/adapters for external dependencies to enable controlled tests.
+  - [x] Introduce narrow interfaces/adapters for external dependencies to enable controlled tests.
   - [ ] Verify each seam refactor by running both unit and existing integration tests.
 
 - [ ] **6) Strengthen coverage quality (not just percentage)**
