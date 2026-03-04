@@ -70,7 +70,7 @@ contains
         real(kind=wp) :: r(3)
         integer :: info(3)
 
-        ! Regression: exact upper-bound coordinates previously got wrapped due to inclusive bound checks.
+        ! Regression: BUGREF(local:20260303-cross-pb-upper-bound) exact upper-bound coordinates previously got wrapped due to inclusive bound checks.
         call set_test_box(0.0_wp, 10.0_wp)
         period = [.false., .true., .false.]
         r = [4.0_wp, 10.0_wp, 6.0_wp]

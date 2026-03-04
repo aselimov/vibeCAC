@@ -74,6 +74,17 @@ If a flaky test is found:
 - Validator/parser targets must include at least one explicit negative-case assertion (invalid/rejected/missing/error path).
 - CI enforces this with `.github/scripts/enforce_unit_assertions.sh`.
 
+## Regression-test intake workflow
+
+- Every production bug fix in deterministic logic must include a reproducer unit test in `src/unit_tests/test_*.f90`.
+- Each regression test must include a traceability comment directly above the test body using:
+  - `! Regression: BUGREF(<issue-or-bug-id>) <short summary>`
+- If no external issue tracker ID exists, use a stable local reference:
+  - `BUGREF(local:YYYYMMDD-<slug>)`
+- Review cadence: once per release cycle, run:
+  - `rg -n "Regression: BUGREF\(" src/unit_tests/test_*.f90`
+- During review, merge duplicate reproducers and remove obsolete cases only when equivalent coverage remains.
+
 ## Ownership and rotation
 
 - Primary owner: maintainers touching `src/unit_tests/` and `src/Makefile` in the same PR.

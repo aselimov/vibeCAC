@@ -162,10 +162,10 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - [x] no pure smoke tests for logic-heavy routines,
     - [x] required negative-case coverage for validators/parsers.
 
-- [ ] **7) Add regression-test intake workflow**
-  - [ ] For each production bug fix in deterministic logic, require a reproducer unit test.
-  - [ ] Tag regression tests with issue/bug references in comments for traceability.
-  - [ ] Periodically review regression set for overlaps and cleanup opportunities.
+- [x] **7) Add regression-test intake workflow**
+  - [x] For each production bug fix in deterministic logic, require a reproducer unit test.
+  - [x] Tag regression tests with issue/bug references in comments for traceability.
+  - [x] Periodically review regression set for overlaps and cleanup opportunities.
 
 - [ ] **8) Improve CI feedback and suite ergonomics**
   - [ ] Ensure fast unit suite remains default PR gate.
