@@ -1,11 +1,12 @@
 program test_str
     use str, only: tok_count, to_lower
     use assertions, only: assert_equal_int, assert_equal_str
+    use fixtures, only: begin_suite, end_suite
     implicit none
 
     integer :: failures
 
-    failures = 0
+    call begin_suite(failures)
 
     call test_tok_count_empty_string(failures)
     call test_tok_count_whitespace_only(failures)
@@ -14,12 +15,7 @@ program test_str
     call test_to_lower_mixed_case(failures)
     call test_to_lower_keeps_non_letters(failures)
 
-    if (failures > 0) then
-        print '(A,1X,I0)', 'Unit tests failed:', failures
-        stop 1
-    end if
-
-    print '(A)', 'All str unit tests passed.'
+    call end_suite(failures, 'test_str')
 
 contains
 

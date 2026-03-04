@@ -1,23 +1,19 @@
 program test_assertions
     use parameters, only: wp
     use assertions, only: assert_equal_int_array, assert_close_real_array, assert_close_real_tol, assert_str_contains
+    use fixtures, only: begin_suite, end_suite
     implicit none
 
     integer :: failures
 
-    failures = 0
+    call begin_suite(failures)
 
     call test_int_array_assertion_accepts_equal_arrays(failures)
     call test_real_array_assertion_honors_abs_and_rel_tolerance(failures)
     call test_real_tolerance_assertion_accepts_relative_match(failures)
     call test_expected_failure_message_pattern_assertion(failures)
 
-    if (failures > 0) then
-        print '(A,1X,I0)', 'Unit tests failed:', failures
-        stop 1
-    end if
-
-    print '(A)', 'All assertion helper tests passed.'
+    call end_suite(failures, 'test_assertions')
 
 contains
 

@@ -1,12 +1,13 @@
 program test_dump_logic
     use assertions
     use dump_logic
+    use fixtures, only: begin_suite, end_suite
 
     implicit none
 
     integer :: failures
 
-    failures = 0
+    call begin_suite(failures)
 
     call test_normalize_dump_every_zero_maps_to_huge(failures)
     call test_normalize_dump_every_positive_unchanged(failures)
@@ -15,12 +16,7 @@ program test_dump_logic
     call test_strip_dump_extension_removes_dot_suffix(failures)
     call test_strip_dump_extension_keeps_name_without_dot(failures)
 
-    if (failures > 0) then
-        print '(A,I0)', 'test_dump_logic failed with ', failures
-        stop 1
-    end if
-
-    print '(A)', 'test_dump_logic passed'
+    call end_suite(failures, 'test_dump_logic')
 
 contains
 

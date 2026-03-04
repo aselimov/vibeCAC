@@ -2,22 +2,18 @@ program test_atom_types
     use atom_types, only: init_atom_types, set_atom_types, parse_types, natom_types, atom_names, atom_types_set, &
                           types_to_pot_type
     use assertions, only: assert_true, assert_false, assert_equal_int, assert_equal_str
+    use fixtures, only: begin_suite, end_suite
     implicit none
 
     integer :: failures
 
-    failures = 0
+    call begin_suite(failures)
 
     call test_init_atom_types_resets_flags_and_maps(failures)
     call test_set_atom_types_assigns_count_and_names(failures)
     call test_parse_types_reads_names_from_command(failures)
 
-    if (failures > 0) then
-        print '(A,1X,I0)', 'Unit tests failed:', failures
-        stop 1
-    end if
-
-    print '(A)', 'All atom_types unit tests passed.'
+    call end_suite(failures, 'test_atom_types')
 
 contains
 

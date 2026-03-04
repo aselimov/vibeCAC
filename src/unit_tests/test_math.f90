@@ -2,11 +2,12 @@ program test_math
     use parameters, only: wp, dp
     use math, only: identity_mat, cross_product, triple_product, in_block_bd, in_cutoff, neighbor_dis_free, dumb_interp
     use assertions, only: assert_true, assert_false, assert_equal_int, assert_close_real
+    use fixtures, only: begin_suite, end_suite
     implicit none
 
     integer :: failures
 
-    failures = 0
+    call begin_suite(failures)
 
     call test_identity_matrix(failures)
     call test_cross_product_basis(failures)
@@ -18,12 +19,7 @@ program test_math
     call test_neighbor_dis_free_components_and_norm(failures)
     call test_dumb_interp_midpoint(failures)
 
-    if (failures > 0) then
-        print '(A,1X,I0)', 'Unit tests failed:', failures
-        stop 1
-    end if
-
-    print '(A)', 'All math unit tests passed.'
+    call end_suite(failures, 'test_math')
 
 contains
 

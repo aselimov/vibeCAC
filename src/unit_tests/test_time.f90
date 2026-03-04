@@ -2,12 +2,13 @@ program test_time
     use time, only: is_valid_timestep, read_timestep_value, validate_timestep
     use parameters, only: wp
     use assertions, only: assert_true, assert_false, assert_equal_int, assert_close_real
+    use fixtures, only: begin_suite, end_suite
     implicit none
 
     integer :: failures
     logical :: error_called
 
-    failures = 0
+    call begin_suite(failures)
     error_called = .false.
 
     call test_is_valid_timestep_accepts_positive(failures)
@@ -16,12 +17,7 @@ program test_time
     call test_read_timestep_value_parses_numeric_argument(failures)
     call test_validate_timestep_calls_handler_on_invalid_value(failures)
 
-    if (failures > 0) then
-        print '(A,1X,I0)', 'Unit tests failed:', failures
-        stop 1
-    end if
-
-    print '(A)', 'All time unit tests passed.'
+    call end_suite(failures, 'test_time')
 
 contains
 

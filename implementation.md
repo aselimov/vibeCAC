@@ -122,13 +122,13 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] needs seam extraction,
   - [x] better suited for integration tests.
 
-- [ ] **3) Expand assertion and test helper utilities**
+- [x] **3) Expand assertion and test helper utilities**
   - [x] Add/standardize helper assertions for:
     - [x] array comparisons,
     - [x] structured floating-point tolerance checks,
     - [x] expected-failure message patterns.
   - [x] Ensure failure output includes enough context for quick triage (expected vs actual + case label).
-  - [ ] Consolidate common fixtures/builders to reduce repeated setup code.
+  - [x] Consolidate common fixtures/builders to reduce repeated setup code.
 
 - [ ] **4) Implement second-wave deterministic module tests**
   - [ ] Add tests for branch-heavy validation and parsing helpers not yet covered.

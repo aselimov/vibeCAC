@@ -31,7 +31,7 @@ ifeq ($(UNIT_TEST),atom_types)
 CORE_OBJECTS += str.o logger.o atom_types.o
 endif
 
-TEST_OBJECTS = assertions.o test_$(UNIT_TEST).o
+TEST_OBJECTS = fixtures.o assertions.o test_$(UNIT_TEST).o
 EXECUTABLE = ut_$(UNIT_TEST)
 
 .PHONY: all run coverage-report clean
