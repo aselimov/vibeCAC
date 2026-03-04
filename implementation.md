@@ -132,7 +132,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 
 - [ ] **4) Implement second-wave deterministic module tests**
   - [x] Add tests for branch-heavy validation and parsing helpers not yet covered.
-  - [ ] Add tests for numeric/state transition helpers with boundary and invalid-input focus.
+  - [x] Add tests for numeric/state transition helpers with boundary and invalid-input focus.
   - [ ] For each selected module, include:
     - [ ] happy-path behavior,
     - [ ] boundary values,
