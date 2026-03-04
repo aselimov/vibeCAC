@@ -160,7 +160,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [ ] Define and enforce “meaningful coverage” review rules:
     - [x] no assertion-free tests,
     - [x] no pure smoke tests for logic-heavy routines,
-    - [ ] required negative-case coverage for validators/parsers.
+    - [x] required negative-case coverage for validators/parsers.
 
 - [ ] **7) Add regression-test intake workflow**
   - [ ] For each production bug fix in deterministic logic, require a reproducer unit test.
