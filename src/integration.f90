@@ -18,6 +18,7 @@ module integration
 
     !Itype is the integration array type for the elements
     integer, allocatable, save :: itype(:)
+    integer, parameter :: intpo_owner_skip = 0, intpo_owner_register = 1, intpo_owner_error = 2
 
     public
     contains
@@ -387,7 +388,8 @@ module integration
     subroutine update_intpo
         !This subroutine updates the ownership arrays for the integration points
         
-        integer :: ie, iep, j, iatom, iatomap, ibasis, intpo_num_sum
+        integer :: ie, iep, j, iatom, iatomap, ibasis, intpo_num_sum, owner_action, owner_slot
+        logical :: in_owner_block
         
         !First allocate who_has_intpo
         if(allocated(who_has_intpo)) then 
@@ -411,20 +413,24 @@ module integration
                 
                 do ibasis = 1, basis_num(ie)
                     iatomap=cg_atomap(basis_num(ie)*(iatom-1) + ibasis, ie)
+                    owner_slot = intpo_owner_slot_index(basis_num(ie), iep, ibasis)
+                    in_owner_block = .false.
+                    if (iatomap /= 0) in_owner_block = in_block_bd(r_atomap(:,iatomap), pro_bd)
+                    owner_action = classify_intpo_owner(iatomap, in_owner_block)
 
-                    !If iatomap /=0 then it's our iatomap
-                    if(iatomap /= 0) then 
-                        if(in_block_bd(r_atomap(:,iatomap), pro_bd)) then 
-                            intpo_num_l = intpo_num_l + 1 
-                            who_has_intpo(basis_num(ie)*(iep-1) + ibasis, ie) = .true.
-                            atomap_to_intpo(1,iatomap) = basis_num(ie)*(iep-1) + ibasis
-                            atomap_to_intpo(2,iatomap) = ie
-                        else
-                            print *, "Error: Atomap ", iatomap, " should belong to ", rank, " but doesn't"
-                            print *, "Pos is ", r_atomap(:,iatomap), " and bd is ", pro_bd
-                            call mpi_abort( mpi_comm_world, 1, ierr)
-                        end if
-                    end if
+                    select case(owner_action)
+                    case (intpo_owner_skip)
+                        cycle
+                    case (intpo_owner_register)
+                        intpo_num_l = intpo_num_l + 1 
+                        who_has_intpo(owner_slot, ie) = .true.
+                        atomap_to_intpo(1,iatomap) = owner_slot
+                        atomap_to_intpo(2,iatomap) = ie
+                    case (intpo_owner_error)
+                        print *, "Error: Atomap ", iatomap, " should belong to ", rank, " but doesn't"
+                        print *, "Pos is ", r_atomap(:,iatomap), " and bd is ", pro_bd
+                        call mpi_abort( mpi_comm_world, 1, ierr)
+                    end select
 
                 end do
 
@@ -443,6 +449,25 @@ module integration
 
         
     end subroutine update_intpo
+
+    pure integer function intpo_owner_slot_index(basis_count, iep, ibasis)
+        integer, intent(in) :: basis_count, iep, ibasis
+
+        intpo_owner_slot_index = basis_count*(iep-1) + ibasis
+    end function intpo_owner_slot_index
+
+    pure integer function classify_intpo_owner(iatomap, in_owner_block)
+        integer, intent(in) :: iatomap
+        logical, intent(in) :: in_owner_block
+
+        if (iatomap == 0) then
+            classify_intpo_owner = intpo_owner_skip
+        else if (in_owner_block) then
+            classify_intpo_owner = intpo_owner_register
+        else
+            classify_intpo_owner = intpo_owner_error
+        end if
+    end function classify_intpo_owner
 
     pure function mass_mat_coeff(esize, etype)
         integer, intent(in) :: esize, etype 
