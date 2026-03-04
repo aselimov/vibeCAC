@@ -13,6 +13,7 @@ program test_atom_types
     call test_set_atom_types_assigns_count_and_names(failures)
     call test_set_atom_types_accepts_max_atom_types(failures)
     call test_parse_types_reads_names_from_command(failures)
+    call test_parse_types_accepts_missing_type_names(failures)
 
     call end_suite(failures, 'test_atom_types')
 
@@ -86,5 +87,19 @@ contains
         call assert_equal_str(atom_names(3), 'O', 'parse_types reads third atom name', failures)
         call assert_true(atom_types_set, 'parse_types marks atom types initialized', failures)
     end subroutine test_parse_types_reads_names_from_command
+
+    subroutine test_parse_types_accepts_missing_type_names(failures)
+        integer, intent(inout) :: failures
+
+        ! Arrange
+        call init_atom_types
+
+        ! Act
+        call parse_types('types')
+
+        ! Assert
+        call assert_equal_int(natom_types, 0, 'parse_types keeps zero type count for missing names', failures)
+        call assert_true(atom_types_set, 'parse_types still marks initialized for zero-type input', failures)
+    end subroutine test_parse_types_accepts_missing_type_names
 
 end program test_atom_types

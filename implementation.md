@@ -136,7 +136,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [ ] For each selected module, include:
     - [x] happy-path behavior,
     - [x] boundary values,
-    - [ ] invalid/guard-rail behavior,
+    - [x] invalid/guard-rail behavior,
     - [ ] regression test(s) for known historical bugs when applicable.
 
 - [ ] **5) Systematically introduce testability seams in hard modules**
