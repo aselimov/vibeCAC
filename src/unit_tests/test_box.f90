@@ -11,6 +11,7 @@ program test_box
 
     call test_cross_pb_wraps_lower_and_upper_periodic(failures)
     call test_cross_pb_keeps_exact_boundaries(failures)
+    call test_cross_pb_regression_does_not_wrap_exact_upper_bound(failures)
     call test_cross_pb_ignores_nonperiodic_out_of_bounds(failures)
     call test_restore_pb_applies_only_periodic_moves(failures)
     call test_restore_pb_nonperiodic_moves_do_not_set_flag(failures)
@@ -63,6 +64,23 @@ contains
             'cross_pb should not move coordinates exactly on box bounds', failures)
         call assert_equal_int_array(info, [0, 0, 0], 'cross_pb should not flag exact-boundary coordinates', failures)
     end subroutine test_cross_pb_keeps_exact_boundaries
+
+    subroutine test_cross_pb_regression_does_not_wrap_exact_upper_bound(failures)
+        integer, intent(inout) :: failures
+        real(kind=wp) :: r(3)
+        integer :: info(3)
+
+        ! Regression: exact upper-bound coordinates previously got wrapped due to inclusive bound checks.
+        call set_test_box(0.0_wp, 10.0_wp)
+        period = [.false., .true., .false.]
+        r = [4.0_wp, 10.0_wp, 6.0_wp]
+
+        call cross_pb(r, info)
+
+        call assert_close_real_array(r, [4.0_wp, 10.0_wp, 6.0_wp], 1.0e-12_wp, 0.0_wp, &
+            'cross_pb regression: exact upper bound remains unchanged', failures)
+        call assert_equal_int_array(info, [0, 0, 0], 'cross_pb regression: exact upper bound is not flagged', failures)
+    end subroutine test_cross_pb_regression_does_not_wrap_exact_upper_bound
 
     subroutine test_cross_pb_ignores_nonperiodic_out_of_bounds(failures)
         integer, intent(inout) :: failures

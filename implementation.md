@@ -137,7 +137,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - [x] happy-path behavior,
     - [x] boundary values,
     - [x] invalid/guard-rail behavior,
-    - [ ] regression test(s) for known historical bugs when applicable.
+    - [x] regression test(s) for known historical bugs when applicable.
 
 - [ ] **5) Systematically introduce testability seams in hard modules**
   - [ ] Identify routines blocked by mixed responsibilities (compute + I/O + orchestration).
