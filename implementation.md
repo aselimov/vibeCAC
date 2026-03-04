@@ -139,7 +139,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - [x] invalid/guard-rail behavior,
     - [x] regression test(s) for known historical bugs when applicable.
 
-- [ ] **5) Systematically introduce testability seams in hard modules**
+- [x] **5) Systematically introduce testability seams in hard modules**
   - [x] Identify routines blocked by mixed responsibilities (compute + I/O + orchestration).
   - Blocked routine inventory (mixed responsibilities requiring seams before meaningful unit tests):
     - `potential:update_force` - combines force orchestration, shared mutable state updates, and per-potential dispatch.
