@@ -207,7 +207,9 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Iteration B (1–2 weeks): second-wave tests for easiest high-impact modules.
     - Scope (2026-03-03 to 2026-03-17): `compute` (`compute_pe`, `compute_temp`), `box` (`cross_pb`), `temp` (`rescale_v`), and `math` (`in_cutoff`).
     - Deliverables: add happy-path + boundary + invalid/guard-rail tests per module and tag any bug reproducer cases as regressions.
-  - [ ] Iteration C (2+ weeks): seam extraction in harder modules + accompanying tests.
+  - [x] Iteration C (2+ weeks): seam extraction in harder modules + accompanying tests.
+    - Scope (2026-03-17 to 2026-03-31): `potential` (`update_force`), `integration` (`update_intpo`), `thermo` (`write_thermo_out`), and `berendsen` (`rescale_box`).
+    - Deliverables: extract pure decision helpers + dependency adapters, add focused unit tests around extracted seams, and run unit suite plus targeted integration coverage where environment permits.
   - [ ] Iteration D (ongoing): regression intake + threshold ratcheting + periodic test debt cleanup.
 
 ## Risks and Mitigations
