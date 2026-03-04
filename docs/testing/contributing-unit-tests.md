@@ -12,6 +12,19 @@ From `src/`:
 2. Run coverage gate for the baseline deterministic target:
    - `make unit-test-coverage UNIT_TEST=math`
 
+## Quick local commands
+
+From `src/`:
+
+1. Run a single module/unit target:
+   - `make unit-test UNIT_TEST=<target>`
+2. Re-run failed tests only (where supported):
+   - `ctest --rerun-failed --output-on-failure`
+   - Note: the default Make-based unit harness does not track prior failures; use `UNIT_TEST=<target>` to re-run a specific failing target.
+3. Collect local coverage output:
+   - `make unit-test-coverage UNIT_TEST=math`
+   - `gcov-15 -b -c math.f90 -o obj` (or `gcov -b -c math.f90 -o obj` if `gcov-15` is unavailable)
+
 ## Test file template
 
 Use one file per module/function target:

@@ -167,14 +167,14 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Tag regression tests with issue/bug references in comments for traceability.
   - [x] Periodically review regression set for overlaps and cleanup opportunities.
 
-- [ ] **8) Improve CI feedback and suite ergonomics**
+- [x] **8) Improve CI feedback and suite ergonomics**
   - [x] Ensure fast unit suite remains default PR gate.
   - [x] Keep optional/long-running tests separated and clearly labeled.
   - [x] Publish per-test timing and identify outliers to keep runtime budget controlled.
-  - [ ] Add quick local commands/documentation for:
-    - [ ] running a single module test,
-    - [ ] running failed tests only (where supported),
-    - [ ] collecting local coverage output.
+  - [x] Add quick local commands/documentation for:
+    - [x] running a single module test,
+    - [x] running failed tests only (where supported),
+    - [x] collecting local coverage output.
 
 - [ ] **9) Define module-by-module completion criteria**
   - [ ] For each prioritized module, define a “done” checklist:
