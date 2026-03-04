@@ -123,11 +123,11 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] better suited for integration tests.
 
 - [ ] **3) Expand assertion and test helper utilities**
-  - [ ] Add/standardize helper assertions for:
-    - [ ] array comparisons,
-    - [ ] structured floating-point tolerance checks,
-    - [ ] expected-failure message patterns.
-  - [ ] Ensure failure output includes enough context for quick triage (expected vs actual + case label).
+  - [x] Add/standardize helper assertions for:
+    - [x] array comparisons,
+    - [x] structured floating-point tolerance checks,
+    - [x] expected-failure message patterns.
+  - [x] Ensure failure output includes enough context for quick triage (expected vs actual + case label).
   - [ ] Consolidate common fixtures/builders to reduce repeated setup code.
 
 - [ ] **4) Implement second-wave deterministic module tests**
