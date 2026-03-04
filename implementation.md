@@ -204,7 +204,9 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 
 - [ ] **10) Plan incremental execution timeline**
   - [x] Iteration A (1–2 weeks): inventory refresh, top-10 backlog, helper utility upgrades.
-  - [ ] Iteration B (1–2 weeks): second-wave tests for easiest high-impact modules.
+  - [x] Iteration B (1–2 weeks): second-wave tests for easiest high-impact modules.
+    - Scope (2026-03-03 to 2026-03-17): `compute` (`compute_pe`, `compute_temp`), `box` (`cross_pb`), `temp` (`rescale_v`), and `math` (`in_cutoff`).
+    - Deliverables: add happy-path + boundary + invalid/guard-rail tests per module and tag any bug reproducer cases as regressions.
   - [ ] Iteration C (2+ weeks): seam extraction in harder modules + accompanying tests.
   - [ ] Iteration D (ongoing): regression intake + threshold ratcheting + periodic test debt cleanup.
 
