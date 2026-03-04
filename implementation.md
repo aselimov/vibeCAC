@@ -140,7 +140,16 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
     - [x] regression test(s) for known historical bugs when applicable.
 
 - [ ] **5) Systematically introduce testability seams in hard modules**
-  - [ ] Identify routines blocked by mixed responsibilities (compute + I/O + orchestration).
+  - [x] Identify routines blocked by mixed responsibilities (compute + I/O + orchestration).
+  - Blocked routine inventory (mixed responsibilities requiring seams before meaningful unit tests):
+    - `potential:update_force` - combines force orchestration, shared mutable state updates, and per-potential dispatch.
+    - `thermo:write_thermo_out` - mixes output formatting decisions, file I/O, and global thermodynamic state reads.
+    - `dump:write_dump` - interleaves snapshot assembly, MPI gather behavior, and file emission.
+    - `read_data:read_model` - couples parsing/tokenization, validation, allocation, and global model mutation.
+    - `input_parser:read_input` - combines command ingestion, parse branching, error surfacing, and execution orchestration.
+    - `comms:comm_init` - blends topology decisions, MPI setup calls, and global communication state wiring.
+    - `neighbors:neighbor_lists` - intertwines neighbor rebuild policy, allocation paths, and shared state mutation.
+    - `integration:update_intpo` - combines integration-policy decisions with direct updates to global integration state.
   - [ ] Extract pure decision helpers from stateful paths where behavior can be preserved.
   - [ ] Introduce narrow interfaces/adapters for external dependencies to enable controlled tests.
   - [ ] Verify each seam refactor by running both unit and existing integration tests.
