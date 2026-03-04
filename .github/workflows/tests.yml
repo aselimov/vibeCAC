@@ -20,6 +20,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gfortran libopenmpi-dev openmpi-bin gcovr
 
+      - name: Enforce assertion-bearing unit tests
+        run: .github/scripts/enforce_unit_assertions.sh
+
       - name: Run unit tests
         working-directory: src
         run: |

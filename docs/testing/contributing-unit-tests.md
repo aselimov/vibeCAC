@@ -67,6 +67,11 @@ If a flaky test is found:
    - non-critical paths: within 5 business days
 4. Re-enable only after 10 consecutive local passes.
 
+## Meaningful coverage review rules
+
+- Assertion-free unit tests are disallowed. Every `src/unit_tests/test_*.f90` file must include at least one `call assert_*` check.
+- CI enforces this with `.github/scripts/enforce_unit_assertions.sh`.
+
 ## Ownership and rotation
 
 - Primary owner: maintainers touching `src/unit_tests/` and `src/Makefile` in the same PR.
