@@ -203,7 +203,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 | `neighbors` (`neighbor_lists`) | >= 75% | unassigned | 2026-03-03 | in progress |
 
 - [ ] **10) Plan incremental execution timeline**
-  - [ ] Iteration A (1–2 weeks): inventory refresh, top-10 backlog, helper utility upgrades.
+  - [x] Iteration A (1–2 weeks): inventory refresh, top-10 backlog, helper utility upgrades.
   - [ ] Iteration B (1–2 weeks): second-wave tests for easiest high-impact modules.
   - [ ] Iteration C (2+ weeks): seam extraction in harder modules + accompanying tests.
   - [ ] Iteration D (ongoing): regression intake + threshold ratcheting + periodic test debt cleanup.
