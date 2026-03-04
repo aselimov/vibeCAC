@@ -82,7 +82,18 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 | vel_verlet | `verlet`, `update_r`, `update_vel` | untested | high | global state, orchestration complexity | M |
 
 - [ ] **2) Prioritize a targeted backlog for next increments**
-  - [ ] Define a top-10 candidate list of untested or weakly-tested routines.
+  - [x] Define a top-10 candidate list of untested or weakly-tested routines.
+  - Top-10 candidate routines (from current untested/partially covered inventory):
+    1. `compute: compute_pe`
+    2. `compute: compute_temp`
+    3. `neighbors: neighbor_lists`
+    4. `potential: update_force`
+    5. `integration: update_intpo`
+    6. `box: cross_pb`
+    7. `temp: rescale_v`
+    8. `thermo: write_thermo_out`
+    9. `berendsen: rescale_box`
+    10. `math: in_cutoff` (partially covered)
   - [ ] Prioritize by defect impact and determinism (not just ease).
   - [ ] Label each backlog item as:
     - [ ] direct unit-testable now,
