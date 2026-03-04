@@ -22,15 +22,64 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 
 ## Step-by-Step Continuation Requirements
 
-- [ ] **1) Re-baseline current test inventory and gaps**
-  - [ ] Generate up-to-date inventory of procedures/modules in `src/*.f90`.
-  - [ ] Map each module to current unit-test status: covered / partially covered / untested.
-  - [ ] Produce a gap table with columns:
-    - [ ] module,
-    - [ ] key procedures,
-    - [ ] risk level (high/medium/low),
-    - [ ] blocker type (MPI, I/O, global state, orchestration complexity),
-    - [ ] estimated effort.
+- [x] **1) Re-baseline current test inventory and gaps**
+  - [x] Generate up-to-date inventory of procedures/modules in `src/*.f90`.
+  - [x] Map each module to current unit-test status: covered / partially covered / untested.
+  - [x] Produce a gap table with columns:
+    - [x] module,
+    - [x] key procedures,
+    - [x] risk level (high/medium/low),
+    - [x] blocker type (MPI, I/O, global state, orchestration complexity),
+    - [x] estimated effort.
+  - Baseline date: 2026-03-03
+  - Test status legend:
+    - covered = targeted unit tests exist and exercise primary logic paths
+    - partially covered = targeted unit tests exist but only for subset of key behavior
+    - untested = no targeted unit tests in `src/unit_tests/test_*.f90`
+
+| module | key procedures | status | risk | blocker type | estimated effort |
+| --- | --- | --- | --- | --- | --- |
+| atom_types | `init_atom_types`, `set_atom_types`, `parse_types` | partially covered | medium | global state | M |
+| berendsen | `parse_berendsen`, `rescale_box` | untested | medium | global state, orchestration complexity | M |
+| box | `parse_boundary`, `cross_pb`, `restore_pb` | untested | high | global state | M |
+| cg | `cg_init`, `cg_iterate`, `linesearch_backtrack` | untested | high | orchestration complexity, global state | L |
+| comms | `processor_array`, `scatter_cg_array`, `comm_init` | untested | high | MPI, global state | L |
+| compute | `compute_pe`, `compute_ke`, `compute_temp` | untested | high | global state | M |
+| debug | `parse_debug`, `run_debug`, `check_ele` | untested | low | orchestration complexity | S |
+| deform | `parse_deform`, `deform_box` | untested | medium | global state, orchestration complexity | M |
+| displace | `displace_points`, `ramp_displace` | untested | medium | global state | M |
+| dump_logic | `normalize_dump_every`, `should_write_dump`, `strip_dump_extension` | covered | low | none | S |
+| dump | `parse_dump`, `write_dump`, `gather_at` | untested | high | I/O, MPI, global state | L |
+| dynamics | `parse_run`, `run_dynamics`, `step` | untested | high | orchestration complexity, global state | L |
+| eam | `eam_lammps`, `set_eam_map_arrays`, `eamarray2spline` | untested | high | I/O, global state | L |
+| elements | `alloc_at_arrays`, `grow_cg_arrays`, `dealloc_cg_arrays` | untested | medium | global state | M |
+| errors | `read_error`, `misc_error`, `command_error` | untested | medium | global state | S |
+| fire | `fire_init`, `fire_iterate`, `fire_clean` | untested | high | orchestration complexity, global state | L |
+| force_mod | `parse_set_force`, `add_force`, `run_set_force` | untested | medium | global state | M |
+| forces | `alloc_force_arrays`, `update_equiv`, `communicate_force_eq` | untested | high | MPI, global state | L |
+| group | `parse_group`, `assign_group`, `write_group` | untested | medium | I/O, global state | M |
+| input_parser | `read_input`, `pre_calc` | untested | high | I/O, orchestration complexity | L |
+| input_validation | `first_missing_required_command` | covered | low | none | S |
+| integration | `init_integration`, `update_intpo`, `update_itype` | untested | high | global state, orchestration complexity | M |
+| langevin | `parse_langevin`, `langevin_post_force` | untested | medium | global state | M |
+| logger | `log_defaults`, `log_msg`, `close_log` | untested | medium | I/O, global state | S |
+| main | program entry point | untested | high | orchestration complexity, MPI, I/O | L |
+| math | `identity_mat`, `cross_product`, `triple_product`, `in_cutoff` | partially covered | medium | none | M |
+| min_arrays | `alloc_min_arrays`, `pack_atom_cg`, `unpack_ele_cg` | untested | medium | global state | M |
+| minimize | `parse_minimize`, `run_min`, `iterate` | untested | high | orchestration complexity, global state | L |
+| modify | `parse_modify` | untested | low | orchestration complexity | S |
+| morse | `add_morse_potential`, `update_force_morse` | untested | medium | global state | M |
+| neighbors | `parse_neighbors`, `neighbor_lists`, `alloc_nei_arrays` | untested | high | global state, orchestration complexity | L |
+| parameters | global parameter definitions | untested | medium | global state | S |
+| potential | `parse_potential`, `update_force`, `pre_force` | untested | high | I/O, global state, orchestration complexity | L |
+| quenched_dynamics | `qd`, `quenched_vel` | untested | medium | global state | M |
+| read_data | `parse_read`, `read_model`, `read_restart` | untested | high | I/O, global state | L |
+| set | `parse_set`, `set_type`, `set_vel`, `set_fraction` | untested | medium | global state | M |
+| str | `tok_count`, `to_lower` | covered | low | none | S |
+| temp | `parse_temp`, `init_vel`, `rescale_v` | untested | medium | global state | M |
+| thermo | `parse_thermo`, `write_thermo_out` | untested | high | I/O, global state | M |
+| time | `is_valid_timestep`, `read_timestep_value`, `validate_timestep` | partially covered | low | none | S |
+| vel_verlet | `verlet`, `update_r`, `update_vel` | untested | high | global state, orchestration complexity | M |
 
 - [ ] **2) Prioritize a targeted backlog for next increments**
   - [ ] Define a top-10 candidate list of untested or weakly-tested routines.
