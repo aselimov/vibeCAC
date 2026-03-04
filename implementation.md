@@ -135,7 +135,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
   - [x] Add tests for numeric/state transition helpers with boundary and invalid-input focus.
   - [ ] For each selected module, include:
     - [x] happy-path behavior,
-    - [ ] boundary values,
+    - [x] boundary values,
     - [ ] invalid/guard-rail behavior,
     - [ ] regression test(s) for known historical bugs when applicable.
 

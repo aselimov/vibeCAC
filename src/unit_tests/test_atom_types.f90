@@ -1,6 +1,6 @@
 program test_atom_types
     use atom_types, only: init_atom_types, set_atom_types, parse_types, natom_types, atom_names, atom_types_set, &
-                          types_to_pot_type
+                          types_to_pot_type, max_atom_types
     use assertions, only: assert_true, assert_false, assert_equal_int, assert_equal_str
     use fixtures, only: begin_suite, end_suite
     implicit none
@@ -11,6 +11,7 @@ program test_atom_types
 
     call test_init_atom_types_resets_flags_and_maps(failures)
     call test_set_atom_types_assigns_count_and_names(failures)
+    call test_set_atom_types_accepts_max_atom_types(failures)
     call test_parse_types_reads_names_from_command(failures)
 
     call end_suite(failures, 'test_atom_types')
@@ -50,6 +51,24 @@ contains
         call assert_equal_str(atom_names(3), 'Al', 'set_atom_types stores third name', failures)
         call assert_true(atom_types_set, 'set_atom_types marks atom types initialized', failures)
     end subroutine test_set_atom_types_assigns_count_and_names
+
+    subroutine test_set_atom_types_accepts_max_atom_types(failures)
+        integer, intent(inout) :: failures
+        character(len=2) :: names(max_atom_types)
+
+        ! Arrange
+        names = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'B0']
+        call init_atom_types
+
+        ! Act
+        call set_atom_types(max_atom_types, names)
+
+        ! Assert
+        call assert_equal_int(natom_types, max_atom_types, 'set_atom_types supports max_atom_types boundary', failures)
+        call assert_equal_str(atom_names(1), 'A1', 'set_atom_types keeps first boundary name', failures)
+        call assert_equal_str(atom_names(max_atom_types), 'B0', 'set_atom_types keeps last boundary name', failures)
+        call assert_true(atom_types_set, 'set_atom_types marks initialized at max boundary', failures)
+    end subroutine test_set_atom_types_accepts_max_atom_types
 
     subroutine test_parse_types_reads_names_from_command(failures)
         integer, intent(inout) :: failures
