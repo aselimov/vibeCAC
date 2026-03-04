@@ -4,6 +4,13 @@ on:
   pull_request:
   push:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      run_optional_long_tests:
+        description: "Run optional long-running integration tests"
+        required: true
+        default: false
+        type: boolean
 
 jobs:
   unit-tests:
@@ -52,12 +59,12 @@ jobs:
           name: unit-test-artifacts
           path: src/artifacts
 
-  integration-tests:
-    name: Integration tests (heavier)
+  optional-long-integration-tests:
+    name: Optional long-running integration tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: unit-tests
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'workflow_dispatch' && inputs.run_optional_long_tests
     steps:
       - uses: actions/checkout@v4
 
@@ -66,7 +73,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gfortran libopenmpi-dev openmpi-bin
 
-      - name: Run integration tests
+      - name: Run long integration tests
         working-directory: src
         run: |
           make test_pair_force
@@ -83,5 +90,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: integration-test-artifacts
+          name: optional-long-integration-test-artifacts
           path: src/artifacts
