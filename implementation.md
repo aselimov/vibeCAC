@@ -226,6 +226,6 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 
 ## Definition of Done (This Continuation Plan)
 - [x] Archived prior completed implementation plan with descriptive naming.
-- [ ] New continuation plan committed at `implementation.md`.
+- [x] New continuation plan committed at `implementation.md`.
 - [ ] First prioritized backlog slice selected and linked to concrete test tasks.
 - [ ] At least one newly targeted module receives expanded unit-test coverage under this plan.
