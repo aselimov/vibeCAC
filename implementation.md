@@ -170,7 +170,7 @@ Continue expanding and hardening unit-test coverage across deterministic and sem
 - [ ] **8) Improve CI feedback and suite ergonomics**
   - [x] Ensure fast unit suite remains default PR gate.
   - [x] Keep optional/long-running tests separated and clearly labeled.
-  - [ ] Publish per-test timing and identify outliers to keep runtime budget controlled.
+  - [x] Publish per-test timing and identify outliers to keep runtime budget controlled.
   - [ ] Add quick local commands/documentation for:
     - [ ] running a single module test,
     - [ ] running failed tests only (where supported),

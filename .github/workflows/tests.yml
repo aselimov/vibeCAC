@@ -30,11 +30,8 @@ jobs:
       - name: Enforce assertion-bearing unit tests
         run: .github/scripts/enforce_unit_assertions.sh
 
-      - name: Run unit tests
-        working-directory: src
-        run: |
-          make unit-test UNIT_TEST=math
-          make unit-test UNIT_TEST=str
+      - name: Run unit tests with timing report
+        run: .github/scripts/unit_test_timing.sh math str
 
       - name: Run coverage gate
         working-directory: src
